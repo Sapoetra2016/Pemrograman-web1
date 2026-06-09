@@ -81,6 +81,18 @@ body::after {
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
 
+.navbar {
+    width:95%;
+    max-width:1200px;
+    margin:10px auto 40px;
+    background:grey;
+    padding:20px;
+    display:flex;
+    gap:20px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
 .bg-animation span{
     position: absolute;
     border-radius: 50%;
