@@ -1,2 +1,4 @@
-# Pemrograman-web1
-UTS Pembrograman Web 1
+Pemrograman web 1
+Tugas UTS
+Universitas Siber Asia
+PJJ Informatika
