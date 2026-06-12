@@ -88,12 +88,13 @@ body::after {
 .navbar {
     width:95%;
     max-width:1200px;
-    border-radius: 25px;
-    margin:20px auto 60px;
+    border-radius: 50px;
+    margin:40px auto 60px;
     background:grey;
-    padding:20px;
+    padding: 15px 30px;
     font-weight: bold;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    font-size:25px; 
+    box-shadow:0 7px 12px rgba(0,0,0,.08);
 }
 .navbar a{
     text-decoration: none;
