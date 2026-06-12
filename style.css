@@ -1,3 +1,7 @@
+/* ==========================================
+   BODY
+========================================== */
+
 .Body {
     min-height: 100vh;
     display: flex;
@@ -84,12 +88,18 @@ body::after {
 .navbar {
     width:95%;
     max-width:1200px;
-    border-radius: 50px;
+    border-radius: 25px;
     margin:20px auto 60px;
     background:grey;
     padding:20px;
     font-weight: bold;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.navbar a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin: 0 15px;
 }
 
 .bg-animation span{
@@ -210,15 +220,9 @@ body::after {
     height: 80px;
 }
 
-.about-container{
-    width: 90%;
-    max-width: 1400px;
-    margin: 30px auto;
-    background: #f5f7f7;
-    border-radius: 25px;
-    padding: 30px;
-    box-shadow: 0 15px 40px rgba(0,0,0,.15);
-}
+/* ==========================================
+   SKILL
+========================================== */
 
 .skill-tables{
     grid-template-columns:repeat(3,1fr);
@@ -254,6 +258,10 @@ body::after {
     }
 
 }
+
+/* ==========================================
+   EXPERIENCE
+========================================== */
 
 .experience-tables{
     display:grid;
@@ -291,4 +299,103 @@ body::after {
         grid-template-columns:1fr;
     }
 
+}
+.content-box{
+    background:#f3f3f3;
+    margin-top:40px;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* ==========================================
+   HOBY
+========================================== */
+
+.hobby-card{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    transition:0.4s;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+.hobby-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.hobby-img{
+    height:220px;
+    object-fit:cover;
+}
+
+.hobby-card h4{
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.hobby-card p{
+    color:#555;
+    line-height:1.6;
+}
+
+.timeline{
+    position: relative;
+    margin-left: 25px;
+}
+
+.timeline::before{
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: #0d6efd;
+    border-radius: 20px;
+}
+
+.timeline-item{
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 70px;
+}
+
+.timeline-icon{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 45px;
+    height: 45px;
+    background: white;
+    border-radius: 50%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,.15);
+    z-index: 2;
+}
+
+.timeline-card{
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.1);
+    transition: .3s;
+}
+
+.timeline-card:hover{
+    transform: translateX(10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+.timeline-card h4{
+    font-weight: bold;
+}
+
+.timeline-card p{
+    color: #555;
+    margin-bottom: 0;
 }
