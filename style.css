@@ -1,3 +1,6 @@
+/* =========================
+   Background Utama Halaman
+   ========================= */
 .Body {
     min-height: 100vh;
     display: flex;
@@ -11,7 +14,7 @@
     );
     padding: 20px;
 }
-
+/* Efek Lingkaran Dekoratif Background */
 body::before {
     content: "";
     position: fixed;
@@ -69,6 +72,10 @@ body::after {
     right: -100px;
 }
 
+/* =========================
+   Container Utama CV
+   ========================= */
+
 .wrapper{
     position: relative;
     overflow: hidden;
@@ -80,6 +87,7 @@ body::after {
     border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
+/* bar navigasi */
 
 .navbar {
     width:95%;
@@ -98,6 +106,8 @@ body::after {
     font-weight: bold;
     margin: 0 15px;
 }
+
+/* Efek Animasi Background */
 
 .bg-animation span{
     position: absolute;
@@ -144,6 +154,9 @@ body::after {
     pointer-events: none;
 }
 
+/* =========================
+   Menu Card
+   ========================= */
 
 .menu {
     transition: all 0.3s ease;
@@ -153,6 +166,10 @@ body::after {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
+
+/* =========================
+   Social Media Section
+   ========================= */
 .sosmed {
     margin-top: 25px;
     display: flex;
@@ -217,6 +234,10 @@ body::after {
     height: 80px;
 }
 
+/* =========================
+   Skill Table
+   ========================= */
+
 .skill-tables{
     grid-template-columns:repeat(3,1fr);
     margin-top:20px;
@@ -251,6 +272,9 @@ body::after {
     }
 
 }
+/* =========================
+   Experience table
+   ========================= */
 
 .experience-tables{
     display:grid;
@@ -324,6 +348,10 @@ body::after {
     color:#555;
     line-height:1.6;
 }
+
+/* =========================
+   Timeline Pendidikan
+   ========================= */
 
 .timeline{
     position: relative;
