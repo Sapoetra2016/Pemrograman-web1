@@ -234,6 +234,13 @@ body::after {
     height: 80px;
 }
 
+.tentang-list {
+        display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px 30px;
+    padding-left:25px;
+}
+
 /* =========================
    Skill Table
    ========================= */
