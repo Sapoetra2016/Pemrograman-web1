@@ -419,6 +419,10 @@ body::after {
     color: #555;
     margin-bottom: 0;
 }
+
+/* =========================
+   CSS untuk list
+   ========================= */
 .games-list {
     display:grid;
     grid-template-columns:repeat(2,1fr);
