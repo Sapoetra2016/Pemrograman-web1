@@ -79,7 +79,7 @@ body::after {
 .wrapper{
     position: relative;
     overflow: hidden;
-    background-color: #f5f7f7;
+    background-color: #dcebe3;
     width: 80%;
     max-width: 1200px;
     margin: 0 auto;
@@ -94,17 +94,61 @@ body::after {
     max-width:1200px;
     border-radius: 50px;
     margin:40px auto 60px;
-    background:grey;
+    background: linear-gradient(120deg, #2c7a6b, #38b2a2, #2563eb);
+    background-size: 200% 100%;
+    animation: navbar-shift 8s ease-in-out infinite alternate;
     padding: 15px 30px;
     font-weight: bold;
     font-size:25px; 
     box-shadow:0 7px 12px rgba(0,0,0,.08);
+    transition: box-shadow .3s ease;
 }
+
+/* gradient navbar bergerak pelan */
+@keyframes navbar-shift{
+    from{
+        background-position: 0% 0;
+    }
+    to{
+        background-position: 100% 0;
+    }
+}
+
+.navbar:hover{
+    box-shadow:0 10px 24px rgba(0,0,0,.18);
+}
+
 .navbar a{
+    position: relative;
     text-decoration: none;
     color: white;
     font-weight: bold;
     margin: 0 15px;
+    padding: 4px 2px;
+    transition: color .25s ease, transform .25s ease;
+}
+
+/* garis bawah muncul bergerak dari tengah saat hover */
+.navbar a::after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    width: 0;
+    height: 3px;
+    background: #c8f5e9;
+    border-radius: 3px;
+    transition: width .3s ease, left .3s ease;
+}
+
+.navbar a:hover{
+    color: #c8f5e9;
+    transform: translateY(-2px);
+}
+
+.navbar a:hover::after{
+    width: 100%;
+    left: 0;
 }
 
 /* link navigasi dibungkus JS (.nav-links) agar gampang di-collapse di HP */
@@ -153,8 +197,12 @@ body::after {
 /* link halaman yang sedang aktif */
 .navbar a.nav-active{
     color: #c8f5e9;
-    text-decoration: underline;
-    text-underline-offset: 6px;
+    text-decoration: none;
+}
+
+.navbar a.nav-active::after{
+    width: 100%;
+    left: 0;
 }
 
 /* Efek Animasi Background */
@@ -230,11 +278,16 @@ body::after {
 .sosmed img {
     width: 32px;
     height: 32px;
+    padding: 6px;
+    background: #dff5ef;
+    border-radius: 50%;
     transition: 0.3s;
 }
 
 .sosmed img:hover {
-    transform: scale(1.1);
+    transform: scale(1.25) translateY(-4px);
+    background: #2c7a6b;
+    box-shadow: 0 8px 16px rgba(44, 122, 107, .35);
 }
 
 .menu-container{
@@ -251,37 +304,178 @@ body::after {
 .content {
     margin-top: 25px;
 }
+
+/* judul sambutan: warna gradient mengalir berulang terus (tone pastel lembut) */
+.content h1,
+.content h2{
+    background: linear-gradient(90deg,
+        #4fae9c, #74b5a8, #8fb6cd, #9da3c4, #c0a0b4, #4fae9c);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #4fae9c; /* cadangan kalau tidak mendukung background-clip */
+    animation: heading-flow 5s linear infinite;
+}
+
+.content h2{
+    animation-duration: 7s; /* sedikit lebih lambat supaya tidak seragam */
+}
+
+@keyframes heading-flow{
+    from{
+        background-position: 0% 50%;
+    }
+    to{
+        background-position: 300% 50%;
+    }
+}
 .menu{
+    position: relative;
+    overflow: hidden;
     margin-top: 75px;
     width: 220px;
-    background: white;
+    background: linear-gradient(180deg, #f8fbf9 0%, #ecf5ef 100%);
+    border: 1px solid rgba(44, 122, 107, .10);
     border-radius: 20px;
-    padding: 30px 20px;
+    padding: 30px 20px 22px;
     text-align: center;
     box-shadow: 0 8px 20px rgba(0,0,0,.08);
-    transition: .3s;
+    transition: transform .35s cubic-bezier(.22,.68,.34,1.1),
+                box-shadow .35s ease, border-color .35s ease;
+    will-change: transform;
 }
 
 .menu:hover{
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0,0,0,.15);
+    transform: translateY(-12px) scale(1.03);
+    border-color: rgba(44, 122, 107, .35);
+    box-shadow: 0 24px 50px rgba(44, 122, 107, .28),
+                0 4px 12px rgba(0,0,0,.06);
+}
+
+/* kilat menyapu melewati kartu saat hover */
+.menu::after{
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -60%;
+    width: 40%;
+    height: 140%;
+    background: linear-gradient(105deg, transparent, rgba(255,255,255,.8), transparent);
+    transform: skewX(-18deg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.menu:hover::after{
+    animation: glare-sweep .8s ease;
+}
+
+@keyframes glare-sweep{
+    0%{
+        left: -60%;
+        opacity: 0;
+    }
+    15%{
+        opacity: 1;
+    }
+    100%{
+        left: 130%;
+        opacity: 0;
+    }
+}
+
+/* garis aksen muncul dari tengah di atas kartu menu saat hover */
+.menu::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #2c7a6b, #38b2a2, #2563eb);
+    border-radius: 0 0 8px 8px;
+    transition: width .35s ease;
+}
+
+.menu:hover::before{
+    width: 100%;
+}
+
+.menu h3{
+    font-size: 18px;
+    margin-bottom: 10px;
+    transition: color .3s ease;
+}
+
+/* judul jadi gradient text saat hover */
+.menu:hover h3{
+    background: linear-gradient(90deg, #2c7a6b, #2563eb);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #2c7a6b;
+}
+
+.menu p{
+    font-size: 13.5px;
+    color: #6b7a76;
+    line-height: 1.55;
+    margin-bottom: 14px;
+}
+
+/* tombol "Buka" muncul saat hover */
+.menu-cta{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2c7a6b;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .3s ease .05s, transform .3s ease .05s;
+}
+
+.menu-cta .cta-arrow{
+    transition: transform .3s ease;
+}
+
+.menu:hover .menu-cta{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu:hover .menu-cta .cta-arrow{
+    transform: translateX(5px);
 }
 
 .icon{
     width: 80px;
     height: 80px;
     margin: 0 auto 20px;
-    background: #dff5ef;
+    background: radial-gradient(circle at 30% 30%, #eafbf5, #cdeee2);
+    border: 3px solid white;
+    outline: 1px solid rgba(44, 122, 107, .18);
     border-radius: 50%;
+    transition: transform .35s ease, box-shadow .35s ease, outline-color .35s ease;
 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.menu:hover .icon{
+    transform: scale(1.12) rotate(-6deg);
+    box-shadow: 0 10px 22px rgba(44, 122, 107, .35);
+    outline-color: rgba(44, 122, 107, .45);
+}
+
 .icon img{
-    width: 80px;
-    height: 80px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
 }
 
 .tentang-list {
@@ -302,24 +496,51 @@ body::after {
 
 .skill-table{
     width:100%;
-    border-collapse:collapse;
+    border-collapse:separate;
+    border-spacing:0;
+    background:#f6faf8;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+    transition: box-shadow .35s ease, transform .35s ease;
+}
+
+.skill-table:hover{
+    transform: translateY(-4px);
+    box-shadow:0 14px 32px rgba(44, 122, 107, .22);
 }
 
 .skill-table th{
-    background:#2563eb;
+    background: linear-gradient(120deg, #2c7a6b, #38b2a2);
     color:white;
-    padding:15px;
+    padding:16px;
     text-align:center;
+    font-size:18px;
+    letter-spacing:.5px;
 }
 
 .skill-table td{
-    border:1px solid #e5e7eb;
+    border-bottom:1px solid #eef2f4;
     padding:12px;
     text-align:center;
+    color:#374151;
+    position:relative;
+    transition: background .25s ease, color .25s ease, padding-left .25s ease;
 }
 
-.skill-table tr:hover{
-    background:#f8fafc;
+.skill-table tr:last-child td{
+    border-bottom:none;
+}
+
+/* baris bergantian + efek geser saat hover */
+.skill-table tbody tr:nth-child(even) td{
+    background:#f3faf8;
+}
+
+.skill-table tbody tr:hover td{
+    background:#dff5ef;
+    color:#1d6b5c;
+    font-weight:600;
 }
 
 @media(max-width:768px){
@@ -335,32 +556,68 @@ body::after {
 
 .experience-tables{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
     margin-top:20px;
 }
 
 .experience-table{
     width:100%;
-    border-collapse:collapse;
-    background:white;
+    border-collapse:separate;
+    border-spacing:0;
+    background:#f6f8fb;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+    transition: box-shadow .35s ease, transform .35s ease;
+}
+
+.experience-table:hover{
+    transform: translateY(-4px);
+    box-shadow:0 14px 32px rgba(37, 99, 235, .22);
 }
 
 .experience-table th{
-    background:#2563eb;
+    background: linear-gradient(120deg, #2563eb, #4fae9c);
     color:white;
-    padding:15px;
+    padding:16px;
     text-align:center;
+    font-size:18px;
+    letter-spacing:.5px;
 }
 
 .experience-table td{
-    border:1px solid #e5e7eb;
+    border-bottom:1px solid #eef2f4;
     padding:12px;
     text-align:center;
+    color:#374151;
+    transition: background .25s ease, color .25s ease;
 }
 
-.experience-table tr:hover{
-    background:#f8fafc;
+.experience-table tr:last-child td{
+    border-bottom:none;
+}
+
+/* baris jabatan (yang ada <strong>) ditonjolkan */
+.experience-table td strong{
+    color:#2563eb;
+}
+
+.experience-table tbody tr:nth-child(even) td{
+    background:#f5f8fd;
+}
+
+/* baris tahun diberi gaya seperti badge kecil */
+.experience-table tbody tr:nth-child(2) td{
+    background:#e8f0fe;
+    color:#2563eb;
+    font-weight:600;
+    font-size:14px;
+}
+
+.experience-table tbody tr:hover td{
+    background:#dbeafe;
+    color:#1e40af;
 }
 
 @media(max-width:768px){
@@ -371,11 +628,16 @@ body::after {
 
 }
 .content-box{
-    background:#f3f3f3;
+    background:#cde3d8;
     margin-top:40px;
     padding:40px;
     border-radius:25px;
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* kartu bootstrap (about, hobi, pengalaman) jangan putih murni */
+.wrapper .card{
+    background-color: #f6faf7;
 }
 
 .hobby-card{
@@ -404,6 +666,206 @@ body::after {
 .hobby-card p{
     color:#555;
     line-height:1.6;
+}
+
+/* =========================
+   Project Card (gambar + collapsible detail)
+   ========================= */
+
+.project-list{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+    margin-top:20px;
+}
+
+.project-card{
+    position: relative;
+    overflow: hidden;
+    display:flex;
+    align-items:stretch;
+    background: #f7fbf8;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.project-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 22px 45px rgba(44, 122, 107, .25);
+}
+
+/* garis aksen gradient di sisi kiri, membesar saat hover */
+.project-card::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 0;
+    background: linear-gradient(180deg, #2c7a6b, #38b2a2, #2563eb);
+    border-radius: 0 8px 8px 0;
+    transition: height .35s ease;
+    z-index: 2;
+}
+
+.project-card:hover::before{
+    height: 100%;
+}
+
+/* bagian gambar di kiri */
+.project-media{
+    flex: 0 0 320px;
+    overflow: hidden;
+}
+
+.project-media img{
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s ease;
+}
+
+.project-card:hover .project-media img{
+    transform: scale(1.07);
+}
+
+/* bagian teks di kanan */
+.project-info{
+    flex: 1;
+    padding: 25px 30px;
+}
+
+.project-info h3{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+    transition: color .3s ease;
+}
+
+.project-card:hover h3{
+    color: #2c7a6b;
+}
+
+.project-short{
+    color: #555;
+    line-height: 1.6;
+    font-size: 15px;
+    margin-bottom: 14px;
+}
+
+/* tombol expand / collapse */
+.project-toggle{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: #dff5ef;
+    color: #1d6b5c;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+/* panah kecil yang berputar sesuai status */
+.project-toggle::after{
+    content: '▾';
+    font-size: 14px;
+    transition: transform .3s ease;
+}
+
+.project-toggle[aria-expanded="true"]::after{
+    transform: rotate(180deg);
+}
+
+.project-toggle:hover,
+.project-toggle[aria-expanded="true"]{
+    background: #2c7a6b;
+    color: white;
+    box-shadow: 0 8px 16px rgba(44, 122, 107, .3);
+}
+
+/* area detail hasil expand */
+.project-detail{
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px dashed #d1e7e0;
+    animation: detail-fade .45s ease;
+}
+
+.project-detail h5{
+    font-weight: bold;
+    color: #2c7a6b;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.project-detail p{
+    color: #555;
+    line-height: 1.65;
+    font-size: 14.5px;
+    margin-bottom: 12px;
+}
+
+@keyframes detail-fade{
+    from{
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.project-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.project-tags span{
+    background: #eef4ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 50px;
+    transition: .25s;
+}
+
+.project-card:hover .project-tags span{
+    background: #2563eb;
+    color: white;
+}
+
+@media(max-width:767.98px){
+
+    .project-card{
+        flex-direction: column;
+    }
+
+    .project-media{
+        flex: none;
+        width: 100%;
+        max-height: 200px;
+    }
+
+    .project-media img{
+        min-height: 160px;
+        max-height: 200px;
+    }
+
+    .project-info{
+        padding: 20px;
+    }
+
 }
 
 /* =========================
@@ -446,10 +908,16 @@ body::after {
     justify-content: center;
     box-shadow: 0 3px 10px rgba(0,0,0,.15);
     z-index: 2;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.timeline-item:hover .timeline-icon{
+    transform: scale(1.15);
+    box-shadow: 0 6px 16px rgba(13, 110, 253, .35);
 }
 
 .timeline-card{
-    background: white;
+    background: #f8fbf8;
     padding: 25px;
     border-radius: 18px;
     box-shadow: 0 3px 10px rgba(0,0,0,.1);
@@ -495,10 +963,22 @@ body::after {
     transform: translateY(35px);
 }
 
+/* pakai keyframes (bukan transform permanen) supaya efek hover
+   berbasis transform di kartu/tabel tetap berfungsi setelah reveal */
 .js-anim .revealed{
     opacity: 1;
-    transform: translateY(0);
-    transition: opacity .6s ease, transform .6s ease;
+    animation: reveal-in .6s ease backwards;
+}
+
+@keyframes reveal-in{
+    from{
+        opacity: 0;
+        transform: translateY(35px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* kursor berkedip untuk efek ketik di halaman awal */
@@ -507,6 +987,18 @@ body::after {
     color: #4fae9c;
     font-weight: 300;
     animation: blink-cursor .8s steps(1) infinite;
+}
+
+/* baris tabel muncul bergiliran dari kiri (dipakai main.js) */
+.js-anim .table-row-pending{
+    opacity: 0;
+    transform: translateX(-28px);
+}
+
+.js-anim .table-row-revealed{
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .45s ease, transform .45s ease;
 }
 
 @keyframes blink-cursor{
@@ -552,8 +1044,25 @@ body::after {
         opacity: 1;
         transform: none;
     }
+    .js-anim .revealed{
+        animation: none;
+    }
+    .js-anim .table-row-pending{
+        opacity: 1;
+        transform: none;
+    }
     .bg-animation span{
         animation: none;
+    }
+    .navbar{
+        animation: none;
+    }
+    .content h1,
+    .content h2{
+        animation: none;
+        background: none;
+        -webkit-text-fill-color: initial;
+        color: #4fae9c;
     }
 }
 

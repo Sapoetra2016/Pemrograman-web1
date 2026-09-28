@@ -6,6 +6,9 @@
    2. Efek ketik (typing) pada teks sambutan di halaman awal
    3. Hamburger menu otomatis untuk tampilan handphone (collapse/expand)
    4. Gerak paralel ringan pada lingkaran dekoratif background
+   5. Animasi baris tabel muncul bergiliran (stagger)
+   6. Tilt 3D pada kartu menu halaman awal
+   7. Tombol kembali ke atas
    ============================================================ */
 
 // tandai bahwa JS aktif, supaya CSS animasi boleh menyembunyikan elemen
@@ -27,7 +30,8 @@ const REVEAL_SELECTOR = [
     '.card',                      // kartu isi (about, pengalaman, hobi)
     '.timeline-item',             // item timeline pendidikan
     '.skill-table',               // tabel keahlian
-    '.experience-table'           // tabel pengalaman kerja
+    '.experience-table',          // tabel pengalaman kerja
+    '.project-card'               // kartu project
 ].join(', ');
 
 function setupScrollReveal() {
@@ -51,7 +55,10 @@ function setupScrollReveal() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const i = Number(entry.target.dataset.revealIndex || 0);
-                entry.target.style.transitionDelay = (i * 120) + 'ms';
+                entry.target.style.animationDelay = (i * 120) + 'ms';
+                // buang pending supaya transform kembali ke normal,
+                // efek hover berbasis transform tetap berfungsi
+                entry.target.classList.remove('reveal-pending');
                 entry.target.classList.add('revealed');
                 observer.unobserve(entry.target);
             }
@@ -163,7 +170,69 @@ function setupParallax() {
 }
 
 /* ============================================================
-   5. TOMBOL KEMBALI KE ATAS (dibuat otomatis oleh JS)
+   5. ANIMASI BARIS TABEL (stagger)
+   Saat sebuah tabel masuk layar, baris-barisnya muncul
+   bergiliran dari kiri supaya tampilan lebih hidup.
+   ============================================================ */
+function setupTableRows() {
+    const tables = document.querySelectorAll('.skill-table, .experience-table');
+    if (!tables.length) return;
+
+    // sembunyikan semua baris tbody dulu
+    tables.forEach(table => {
+        table.querySelectorAll('tbody tr').forEach(tr => {
+            tr.classList.add('table-row-pending');
+        });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const rows = entry.target.querySelectorAll('tbody tr');
+            rows.forEach((tr, idx) => {
+                setTimeout(() => {
+                    tr.classList.remove('table-row-pending');
+                    tr.classList.add('table-row-revealed');
+                }, idx * 90); // jeda antar baris
+            });
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.2 });
+
+    tables.forEach(table => observer.observe(table));
+}
+
+/* ============================================================
+   6. TILT 3D pada kartu menu halaman awal
+   Kartu miring sedikit mengikuti posisi kursor (layar besar saja)
+   ============================================================ */
+function setupCardTilt() {
+    // hormati pengguna yang tidak suka animasi
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const cards = document.querySelectorAll('.menu');
+    if (!cards.length) return;
+
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            if (window.innerWidth < MOBILE_BREAKPOINT) return;
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;  // -0.5 s/d 0.5
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            card.style.transform =
+                `perspective(700px) rotateX(${(-y * 8).toFixed(2)}deg)` +
+                ` rotateY(${(x * 8).toFixed(2)}deg)` +
+                ` translateY(-10px) scale(1.03)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = ''; // kembalikan ke CSS hover normal
+        });
+    });
+}
+
+/* ============================================================
+   7. TOMBOL KEMBALI KE ATAS (dibuat otomatis oleh JS)
    ============================================================ */
 function setupScrollTopButton() {
     const btn = document.createElement('button');
@@ -188,6 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupMobileNav();
     setupTyping();
     setupScrollReveal();
+    setupTableRows();
+    setupCardTilt();
     setupParallax();
     setupScrollTopButton();
 });

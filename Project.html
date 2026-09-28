@@ -22,49 +22,132 @@
             <a href="pendidikan.html">Pendidikan</a>
             <a href="skill.html">Pengalaman dan Keahlian</a>
             <a href="hobi.html">Hobi</a>
+            <a href="Project.html">Project</a>
         </div>
         <div class="content-box">
 
-            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+            <div class="text-center mb-5">
+                <h1 class="fw-bold">💻 Project Saya</h1>
+                <p class="text-muted fs-5">
+                    Berikut adalah beberapa project yang sudah saya kerjakan
+                </p>
+            </div>
 
-                <div class="row align-items-center">
+<!-- setiap project punya gambar, penjelasan singkat, dan detail yang bisa di-collapse
+     pakai fitur Bootstrap collapse (data-bs-toggle="collapse") -->
+            <div class="project-list">
 
-                    <div class="col-md-4 text-center">
-                        <img src="asset/foto.jpeg"
-                            class="img-fluid rounded-4"
-                            alt="Foto Profil">
+                <div class="project-card">
+                    <div class="project-media">
+                        <img src="asset/content-images/teknologi.jpg" alt="Aplikasi Penjualan">
                     </div>
-
-                    <div class="col-md-8">
-<!-- halaman project disini ada beberapa project yang sudah saya kerjakan -->
-                        <h1 class="mb-4">
-                            <i class="fa-solid fa-user text-success"></i>
-                            Project
-                        </h1>
-
-                        <p1>
-                            Berikut adalah beberapa project yang sudah saya kerjakan
-                        </p1>
-                        <br></br>
-
-                        <p2>
-                            1. Project Aplikasi Penjualan Berbasis Web
-                        </p2>
-                        <br></br>
-                        <p3>
-                            2. Project Aplikasi Absensi Berbasis Web
-                        </p3>
-                        <br></br>
-                        <p4>
-                            3. Project Aplikasi E-Commerce Berbasis Web
-                        </p4>
+                    <div class="project-info">
+                        <h3>🛒 Aplikasi Penjualan Berbasis Web</h3>
+                        <p class="project-short">
+                            Sistem penjualan untuk mencatat transaksi, mengelola stok
+                            barang, dan laporan penjualan secara real-time.
+                        </p>
+                        <button class="project-toggle" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#detail-project-1"
+                            aria-expanded="false" aria-controls="detail-project-1">
+                            Selengkapnya
+                        </button>
+                        <div class="collapse" id="detail-project-1">
+                            <div class="project-detail">
+                                <h5>Penjelasan Lengkap</h5>
+                                <p>
+                                    Aplikasi ini digunakan untuk mencatat transaksi
+                                    penjualan harian, mengelola stok barang, dan
+                                    menghasilkan laporan penjualan mingguan hingga
+                                    tahunan. Sistem memiliki multi-role (admin, kasir)
+                                    lengkap dengan autentikasi login.
+                                </p>
+                                <div class="project-tags">
+                                    <span>PHP</span>
+                                    <span>MySQL</span>
+                                    <span>Bootstrap</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
+                <div class="project-card">
+                    <div class="project-media">
+                        <img src="asset/content-images/cyber.jpg" alt="Aplikasi Absensi">
+                    </div>
+                    <div class="project-info">
+                        <h3>🕐 Aplikasi Absensi Berbasis Web</h3>
+                        <p class="project-short">
+                            Aplikasi kehadiran untuk mencatat absensi karyawan dan
+                            merekap laporan kehadiran harian hingga bulanan.
+                        </p>
+                        <button class="project-toggle" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#detail-project-2"
+                            aria-expanded="false" aria-controls="detail-project-2">
+                            Selengkapnya
+                        </button>
+                        <div class="collapse" id="detail-project-2">
+                            <div class="project-detail">
+                                <h5>Penjelasan Lengkap</h5>
+                                <p>
+                                    Aplikasi absensi dengan fitur check-in / check-out,
+                                    rekap otomatis per minggu dan bulan, serta ekspor
+                                    laporan. Dilengkapi validasi lokasi dan jam
+                                    kehadiran untuk mengurangi kecurangan absensi.
+                                </p>
+                                <div class="project-tags">
+                                    <span>PHP</span>
+                                    <span>MySQL</span>
+                                    <span>Laravel</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-media">
+                        <img src="asset/content-images/teknologi.jpg" alt="Aplikasi E-Commerce">
+                    </div>
+                    <div class="project-info">
+                        <h3>🛍️ Aplikasi E-Commerce Berbasis Web</h3>
+                        <p class="project-short">
+                            Toko online dengan katalog produk, keranjang belanja,
+                            dan proses checkout pembayaran.
+                        </p>
+                        <button class="project-toggle" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#detail-project-3"
+                            aria-expanded="false" aria-controls="detail-project-3">
+                            Selengkapnya
+                        </button>
+                        <div class="collapse" id="detail-project-3">
+                            <div class="project-detail">
+                                <h5>Penjelasan Lengkap</h5>
+                                <p>
+                                    Platform toko online lengkap dengan katalog dan
+                                    pencarian produk, keranjang belanja, checkout,
+                                    serta integrasi pembayaran. Riwayat pesanan
+                                    pelanggan tersimpan dan bisa dilacak.
+                                </p>
+                                <div class="project-tags">
+                                    <span>HTML</span>
+                                    <span>CSS</span>
+                                    <span>JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
         </div>
+
+            <footer class="text-center py-4 mt-5 border-top">
+                <p class="mb-1">© 2026 Surya Saputra</p>
+                <small class="text-muted"> Mahasiswa Teknik Informatika</small>
+            </footer>
 
     </div>
     <script src="main.js"></script>
