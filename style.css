@@ -107,6 +107,56 @@ body::after {
     margin: 0 15px;
 }
 
+/* link navigasi dibungkus JS (.nav-links) agar gampang di-collapse di HP */
+.nav-links{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* tombol hamburger, hanya tampil di layar kecil */
+.nav-toggle{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-toggle span{
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: white;
+    border-radius: 3px;
+    transition: .3s;
+}
+
+/* efek tombol hamburger jadi tanda X saat menu terbuka */
+.navbar.nav-open .nav-toggle span:nth-child(1){
+    transform: translateY(8px) rotate(45deg);
+}
+.navbar.nav-open .nav-toggle span:nth-child(2){
+    opacity: 0;
+}
+.navbar.nav-open .nav-toggle span:nth-child(3){
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* link halaman yang sedang aktif */
+.navbar a.nav-active{
+    color: #c8f5e9;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
 /* Efek Animasi Background */
 
 .bg-animation span{
@@ -433,4 +483,211 @@ body::after {
 
 .game-list li{
     font-size:14px;
+}
+
+/* =========================
+   Animasi JS (dipakai main.js)
+   Hanya aktif kalau class .js-anim ada di <html>,
+   jadi website tetap normal saat JS dimatikan
+   ========================= */
+.js-anim .reveal-pending{
+    opacity: 0;
+    transform: translateY(35px);
+}
+
+.js-anim .revealed{
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+/* kursor berkedip untuk efek ketik di halaman awal */
+.type-cursor{
+    display: inline-block;
+    color: #4fae9c;
+    font-weight: 300;
+    animation: blink-cursor .8s steps(1) infinite;
+}
+
+@keyframes blink-cursor{
+    50%{
+        opacity: 0;
+    }
+}
+
+/* tombol kembali ke atas */
+.scroll-top-btn{
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 50%;
+    background: #2c7a6b;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(0,0,0,.25);
+    opacity: 0;
+    transform: translateY(15px);
+    pointer-events: none;
+    transition: .35s;
+    z-index: 999;
+}
+
+.scroll-top-btn.show{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.scroll-top-btn:hover{
+    background: #2563eb;
+}
+
+/* matikan animasi bagi pengguna yang prefers reduced motion */
+@media (prefers-reduced-motion: reduce){
+    .js-anim .reveal-pending{
+        opacity: 1;
+        transform: none;
+    }
+    .bg-animation span{
+        animation: none;
+    }
+}
+
+/* =========================
+   Responsif Handphone
+   ========================= */
+@media (max-width: 991.98px){
+
+    .Body,
+    .Body-page{
+        padding: 10px;
+    }
+
+    .wrapper{
+        width: 100%;
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+    .navbar{
+        /* !important supaya menang melawan class d-flex Bootstrap di HTML */
+        display: block !important;
+        padding: 12px 18px;
+        font-size: 18px;
+        margin: 15px auto 30px;
+    }
+
+    .nav-toggle{
+        display: flex;
+        margin-left: auto;
+    }
+
+    /* menu tersembunyi sampai hamburger diklik */
+    .nav-links{
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        margin-top: 12px;
+    }
+
+    .navbar.nav-open .nav-links{
+        display: flex;
+    }
+
+    .nav-links a{
+        display: block;
+        margin: 0;
+        padding: 12px 8px;
+        border-bottom: 1px solid rgba(255,255,255,.18);
+        text-align: center;
+    }
+
+    .nav-links a:last-child{
+        border-bottom: none;
+    }
+
+    .content-box{
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .menu{
+        margin-top: 25px;
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .menu-container{
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+
+    .menu-link{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .tentang-list,
+    .games-list{
+        grid-template-columns: 1fr;
+    }
+
+    .timeline-item{
+        padding-left: 55px;
+    }
+
+    .skill-table,
+    .experience-table{
+        font-size: 14px;
+    }
+
+    .skill-table th,
+    .experience-table th{
+        padding: 10px;
+    }
+
+    .skill-table td,
+    .experience-table td{
+        padding: 8px;
+    }
+
+    h1{
+        font-size: 1.6rem;
+    }
+
+    h2{
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 575.98px){
+
+    .wrapper > .container img{
+        width: 140px !important;
+        height: 140px !important;
+    }
+
+    .sosmed{
+        gap: 12px;
+    }
+
+    .sosmed img{
+        width: 26px;
+        height: 26px;
+    }
+
+    .content-box{
+        padding: 15px;
+    }
+
+    .navbar{
+        font-size: 16px;
+    }
 }
