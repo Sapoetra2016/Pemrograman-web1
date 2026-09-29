@@ -9,6 +9,8 @@
    5. Animasi baris tabel muncul bergiliran (stagger)
    6. Tilt 3D pada kartu menu halaman awal
    7. Tombol kembali ke atas
+   8. Tombol toggle light / dark mode (preferensi disimpan di localStorage)
+   9. Cincin gradient berputar di foto profil + judul masuk animasi naik
    ============================================================ */
 
 // tandai bahwa JS aktif, supaya CSS animasi boleh menyembunyikan elemen
@@ -251,9 +253,96 @@ function setupScrollTopButton() {
 }
 
 /* ============================================================
+   8. TOMBOL TOGGLE LIGHT / DARK MODE
+   Tombol dibuat otomatis oleh JS lalu dipasang di pojok kanan
+   atas pada semua halaman. Tema aktif disimpan di localStorage
+   supaya tetap sama saat pindah halaman / reload. Class
+   .theme-fade sengaja tidak dipakai oleh reveal-pending agar
+   transisi warna tidak bertabrakan dengan animasi scroll.
+   ============================================================ */
+const THEME_KEY = 'tema';
+
+function terapkanTema(tema) {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', tema);
+    root.setAttribute('data-bs-theme', tema); // Bootstrap ikut menyesuaikan
+    try { localStorage.setItem(THEME_KEY, tema); } catch (e) { /* storage mati */ }
+}
+
+function setupThemeToggle() {
+    const btn = document.createElement('button');
+    btn.className = 'theme-btn';
+    btn.type = 'button';
+    document.body.appendChild(btn);
+
+    const icon = document.createElement('span');
+    icon.className = 'theme-icon';
+    btn.appendChild(icon);
+
+    function perbaruiTampilan() {
+        const gelap = document.documentElement.getAttribute('data-theme') === 'dark';
+        // bulan sabit saat terang, matahari saat gelap
+        icon.className = 'theme-icon ' + (gelap ? 'icon-sun' : 'icon-moon');
+        btn.setAttribute('aria-label',
+            gelap ? 'Beralih ke mode terang' : 'Beralih ke mode gelap');
+        btn.title = btn.getAttribute('aria-label');
+    }
+
+    btn.addEventListener('click', () => {
+        const saatIni = document.documentElement.getAttribute('data-theme') || 'light';
+        terapkanTema(saatIni === 'dark' ? 'light' : 'dark');
+        perbaruiTampilan();
+    });
+
+    perbaruiTampilan();
+}
+
+/* ============================================================
+   9. CINCIN GRADIENT FOTO PROFIL
+   Lingkaran gradient berputar mengelilingi foto di halaman awal,
+   dibuat oleh JS supaya HTML-nya tetap bersih
+   ============================================================ */
+function setupAvatarRing() {
+    const hero = document.querySelector('.wrapper > .container');
+    if (!hero || !hero.querySelector('img')) return;
+    const ring = document.createElement('span');
+    ring.className = 'avatar-ring';
+    ring.setAttribute('aria-hidden', 'true');
+    hero.appendChild(ring);
+}
+
+/* ============================================================
+   10. JUDUL MASUK ANIMASI (halaman dalam)
+   h1/h2/h3 di dalam content-box naik lembut saat pertama
+   terlihat, beda dari animasi reveal kartu yang sudah ada
+   ============================================================ */
+function setupHeadingEntrance() {
+    const headings = document.querySelectorAll(
+        '.content-box h1, .content-box h2, .content-box h3, .project-info h3');
+    if (!headings.length) return;
+
+    headings.forEach(el => el.classList.add('heading-pending'));
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.remove('heading-pending');
+                entry.target.classList.add('heading-revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.4 });
+
+    headings.forEach(el => observer.observe(el));
+}
+
+/* ============================================================
    Jalankan semua setup setelah DOM siap
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
+    // pasang transisi warna lebih dulu, sebelum elemen lain hidden animasi reveal
+    document.body.classList.add('theme-fade');
+    setupThemeToggle();
     setupMobileNav();
     setupTyping();
     setupScrollReveal();
@@ -261,4 +350,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCardTilt();
     setupParallax();
     setupScrollTopButton();
+    setupAvatarRing();
+    setupHeadingEntrance();
 });

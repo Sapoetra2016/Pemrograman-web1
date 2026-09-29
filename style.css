@@ -1,4 +1,63 @@
 /* =========================
+   Variabel Warna Tema (Light / Dark Mode)
+   Kelas [data-theme="dark"] dipasang oleh main.js lewat
+   tombol toggle, semua warna di bawah ikut berubah
+   ========================= */
+:root{
+    --bg-gradient: linear-gradient(135deg, #4fae9c 0%, #6dc5b5 50%, #8fd9cb 100%);
+    --bubble-overlay: rgba(255,255,255,0.15);
+    --wrapper-bg: #dcebe3;
+    --text: #21312d;
+    --content-box-bg: #cde3d8;
+    --card-bg: #f6faf7;
+    --menu-bg: linear-gradient(180deg, #f8fbf9 0%, #ecf5ef 100%);
+    --heading-flow: linear-gradient(90deg, #4fae9c, #74b5a8, #8fb6cd, #9da3c4, #c0a0b4, #4fae9c);
+    --nav-accent: #c8f5e9;
+    --muted: #6b7a76;
+    --table-bg: #f6faf8;
+    --table-row-alt: #f3faf8;
+    --table-row-hover: #dff5ef;
+    --table-cell-text: #374151;
+    --table-border: #eef2f4;
+    --primary: #2c7a6b;
+    --accent: #38b2a2;
+    --blue: #2563eb;
+    --blue-soft-bg: #dbeafe;
+    --blue-soft-text: #1e40af;
+    --timeline-line: #0d6efd;
+    --toggle-bg: #dff5ef;
+    --toggle-text: #1d6b5c;
+    --shadow: rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"]{
+    --bg-gradient: linear-gradient(135deg, #0c1f1b 0%, #11302a 50%, #16473e 100%);
+    --bubble-overlay: rgba(255,255,255,0.05);
+    --wrapper-bg: #13202a;
+    --text: #e4efea;
+    --content-box-bg: #1a2f38;
+    --card-bg: #22343e;
+    --menu-bg: linear-gradient(180deg, #22343e 0%, #1c2e37 100%);
+    --heading-flow: linear-gradient(90deg, #7fe0cd, #9ecbe8, #b8a9e0, #7fe0cd);
+    --nav-accent: #a9f2e2;
+    --muted: #a4b5b0;
+    --table-bg: #22343e;
+    --table-row-alt: #1f313a;
+    --table-row-hover: #2c4a56;
+    --table-cell-text: #d8e6e1;
+    --table-border: #2c414c;
+    --primary: #38b2a2;
+    --accent: #4fd1c0;
+    --blue: #6ea2ff;
+    --blue-soft-bg: #27384f;
+    --blue-soft-text: #bcd3f7;
+    --timeline-line: #6ea2ff;
+    --toggle-bg: #2c4a56;
+    --toggle-text: #a9f2e2;
+    --shadow: rgba(0,0,0,0.45);
+}
+
+/* =========================
    Background Utama Halaman
    ========================= */
 .Body {
@@ -6,12 +65,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(
-        135deg,
-        #4fae9c 0%,
-        #6dc5b5 50%,
-        #8fd9cb 100%
-    );
+    background: var(--bg-gradient);
     padding: 20px;
 }
 /* Efek Lingkaran Dekoratif Background */
@@ -21,7 +75,7 @@ body::before {
     width: 250px;
     height: 250px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.15);
+    background: var(--bubble-overlay);
     top: 80px;
     left: 50px;
 }
@@ -32,7 +86,7 @@ body::after {
     width: 350px;
     height: 350px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.1);
+    background: var(--bubble-overlay);
     bottom: -100px;
     right: -100px;
 }
@@ -41,12 +95,7 @@ body::after {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(
-        135deg,
-        #4fae9c 0%,
-        #6dc5b5 50%,
-        #8fd9cb 100%
-    );
+    background: var(--bg-gradient);
     padding: 20px;
 }
 
@@ -56,7 +105,7 @@ body::after {
     width: 250px;
     height: 250px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.15);
+    background: var(--bubble-overlay);
     top: 80px;
     left: 50px;
 }
@@ -67,7 +116,7 @@ body::after {
     width: 350px;
     height: 350px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.1);
+    background: var(--bubble-overlay);
     bottom: -100px;
     right: -100px;
 }
@@ -79,13 +128,15 @@ body::after {
 .wrapper{
     position: relative;
     overflow: hidden;
-    background-color: #dcebe3;
+    background-color: var(--wrapper-bg);
+    color: var(--text);
     width: 80%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    transition: background-color .4s ease, color .4s ease;
 }
 /* bar navigasi */
 
@@ -94,14 +145,24 @@ body::after {
     max-width:1200px;
     border-radius: 50px;
     margin:40px auto 60px;
-    background: linear-gradient(120deg, #2c7a6b, #38b2a2, #2563eb);
+    background: linear-gradient(120deg,
+        rgba(44, 122, 107, .78), rgba(56, 178, 162, .72), rgba(37, 99, 235, .78));
     background-size: 200% 100%;
     animation: navbar-shift 8s ease-in-out infinite alternate;
     padding: 15px 30px;
     font-weight: bold;
     font-size:25px; 
-    box-shadow:0 7px 12px rgba(0,0,0,.08);
-    transition: box-shadow .3s ease;
+    box-shadow:0 7px 12px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.35);
+    /* efek kaca: warna dibuat transparan supaya blur di bawahnya terlihat */
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    border: 1px solid rgba(255,255,255,.28);
+    transition: box-shadow .3s ease, transform .3s ease;
+}
+
+.navbar:hover{
+    box-shadow:0 10px 24px rgba(0,0,0,.18);
+    transform: translateY(-2px);
 }
 
 /* gradient navbar bergerak pelan */
@@ -112,10 +173,6 @@ body::after {
     to{
         background-position: 100% 0;
     }
-}
-
-.navbar:hover{
-    box-shadow:0 10px 24px rgba(0,0,0,.18);
 }
 
 .navbar a{
@@ -136,13 +193,13 @@ body::after {
     bottom: -2px;
     width: 0;
     height: 3px;
-    background: #c8f5e9;
+    background: var(--nav-accent);
     border-radius: 3px;
     transition: width .3s ease, left .3s ease;
 }
 
 .navbar a:hover{
-    color: #c8f5e9;
+    color: var(--nav-accent);
     transform: translateY(-2px);
 }
 
@@ -196,7 +253,7 @@ body::after {
 
 /* link halaman yang sedang aktif */
 .navbar a.nav-active{
-    color: #c8f5e9;
+    color: var(--nav-accent);
     text-decoration: none;
 }
 
@@ -210,7 +267,7 @@ body::after {
 .bg-animation span{
     position: absolute;
     border-radius: 50%;
-    background: rgba(93, 184, 165, 0.15);
+    background: var(--bubble-overlay);
     animation: float 8s ease-in-out infinite;
 }
 
@@ -237,6 +294,30 @@ body::after {
     animation-delay: 4s;
 }
 
+.bg-animation span:nth-child(4){
+    width: 70px;
+    height: 70px;
+    top: 32%;
+    left: 8%;
+    animation-delay: 1s;
+}
+
+.bg-animation span:nth-child(5){
+    width: 180px;
+    height: 180px;
+    bottom: 12%;
+    left: 55%;
+    animation-delay: 3s;
+}
+
+.bg-animation span:nth-child(6){
+    width: 50px;
+    height: 50px;
+    top: 12%;
+    right: 12%;
+    animation-delay: 5s;
+}
+
 @keyframes float{
     0%,100%{
         transform: translateY(0);
@@ -245,11 +326,103 @@ body::after {
         transform: translateY(-25px);
     }
 }
+
+/* gerakan drift miring untuk beberapa gelembung supaya tidak monoton */
+@keyframes drift{
+    0%,100%{
+        transform: translate(0, 0) scale(1);
+    }
+    50%{
+        transform: translate(26px, -18px) scale(1.08);
+    }
+}
+
+.bg-animation span:nth-child(2),
+.bg-animation span:nth-child(4),
+.bg-animation span:nth-child(5){
+    animation-name: drift;
+}
+
+.bg-animation span:nth-child(4){
+    animation-duration: 11s;
+}
+
+.bg-animation span:nth-child(5){
+    animation-duration: 13s;
+}
+
 .bg-animation{
     position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
+}
+
+/* =========================
+   Cincin Gradient Foto Profil (dibuat oleh main.js)
+   ========================= */
+.wrapper > .container{
+    position: relative;
+    z-index: 1;
+}
+
+.wrapper > .container::before{
+    content: '';
+    position: absolute;
+    inset: -16px -100px 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg,
+        #4fae9c, #2563eb, #9da3c4, #c0a0b4, #4fae9c);
+    filter: blur(26px);
+    opacity: .5;
+    z-index: -1;
+    animation: glow-spin 9s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes glow-spin{
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+/* cincin berputar mengelilingi foto: foto 200px di puncak container,
+   cincin 232px harus menonjol rata di semua sisi => top (200-232)/2 = -16px */
+.avatar-ring{
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    width: 232px;
+    height: 232px;
+    margin-left: -116px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg,
+        #4fae9c, #6dc5b5, #2563eb, #9da3c4, #c0a0b4, #4fae9c);
+    -webkit-mask: radial-gradient(farthest-side,
+        transparent calc(100% - 5px), #000 calc(100% - 4px));
+    mask: radial-gradient(farthest-side,
+        transparent calc(100% - 5px), #000 calc(100% - 4px));
+    animation: spin-ring 6s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes spin-ring{
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+/* foto profil angkat pelan saat hover */
+.wrapper > .container img{
+    transition: transform .5s cubic-bezier(.22,.68,.34,1.1),
+                box-shadow .5s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+
+.wrapper > .container:hover img{
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 22px 45px rgba(37, 99, 235, .35);
 }
 
 /* =========================
@@ -279,7 +452,7 @@ body::after {
     width: 32px;
     height: 32px;
     padding: 6px;
-    background: #dff5ef;
+    background: var(--toggle-bg);
     border-radius: 50%;
     transition: 0.3s;
 }
@@ -308,13 +481,12 @@ body::after {
 /* judul sambutan: warna gradient mengalir berulang terus (tone pastel lembut) */
 .content h1,
 .content h2{
-    background: linear-gradient(90deg,
-        #4fae9c, #74b5a8, #8fb6cd, #9da3c4, #c0a0b4, #4fae9c);
+    background: var(--heading-flow);
     background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: #4fae9c; /* cadangan kalau tidak mendukung background-clip */
+    color: var(--primary); /* cadangan kalau tidak mendukung background-clip */
     animation: heading-flow 5s linear infinite;
 }
 
@@ -335,7 +507,7 @@ body::after {
     overflow: hidden;
     margin-top: 75px;
     width: 220px;
-    background: linear-gradient(180deg, #f8fbf9 0%, #ecf5ef 100%);
+    background: var(--menu-bg);
     border: 1px solid rgba(44, 122, 107, .10);
     border-radius: 20px;
     padding: 30px 20px 22px;
@@ -411,16 +583,16 @@ body::after {
 
 /* judul jadi gradient text saat hover */
 .menu:hover h3{
-    background: linear-gradient(90deg, #2c7a6b, #2563eb);
+    background: linear-gradient(90deg, var(--primary), var(--blue));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: #2c7a6b;
+    color: var(--primary);
 }
 
 .menu p{
     font-size: 13.5px;
-    color: #6b7a76;
+    color: var(--muted);
     line-height: 1.55;
     margin-bottom: 14px;
 }
@@ -432,7 +604,7 @@ body::after {
     gap: 6px;
     font-size: 13px;
     font-weight: 700;
-    color: #2c7a6b;
+    color: var(--primary);
     opacity: 0;
     transform: translateY(8px);
     transition: opacity .3s ease .05s, transform .3s ease .05s;
@@ -455,7 +627,7 @@ body::after {
     width: 80px;
     height: 80px;
     margin: 0 auto 20px;
-    background: radial-gradient(circle at 30% 30%, #eafbf5, #cdeee2);
+    background: var(--toggle-bg);
     border: 3px solid white;
     outline: 1px solid rgba(44, 122, 107, .18);
     border-radius: 50%;
@@ -498,7 +670,7 @@ body::after {
     width:100%;
     border-collapse:separate;
     border-spacing:0;
-    background:#f6faf8;
+    background:var(--table-bg);
     border-radius:16px;
     overflow:hidden;
     box-shadow:0 6px 18px rgba(0,0,0,.08);
@@ -520,10 +692,10 @@ body::after {
 }
 
 .skill-table td{
-    border-bottom:1px solid #eef2f4;
+    border-bottom:1px solid var(--table-border);
     padding:12px;
     text-align:center;
-    color:#374151;
+    color:var(--table-cell-text);
     position:relative;
     transition: background .25s ease, color .25s ease, padding-left .25s ease;
 }
@@ -534,12 +706,12 @@ body::after {
 
 /* baris bergantian + efek geser saat hover */
 .skill-table tbody tr:nth-child(even) td{
-    background:#f3faf8;
+    background:var(--table-row-alt);
 }
 
 .skill-table tbody tr:hover td{
-    background:#dff5ef;
-    color:#1d6b5c;
+    background:var(--table-row-hover);
+    color:var(--primary);
     font-weight:600;
 }
 
@@ -565,7 +737,7 @@ body::after {
     width:100%;
     border-collapse:separate;
     border-spacing:0;
-    background:#f6f8fb;
+    background:var(--table-bg);
     border-radius:16px;
     overflow:hidden;
     box-shadow:0 6px 18px rgba(0,0,0,.08);
@@ -578,7 +750,7 @@ body::after {
 }
 
 .experience-table th{
-    background: linear-gradient(120deg, #2563eb, #4fae9c);
+    background: linear-gradient(120deg, var(--blue), #4fae9c);
     color:white;
     padding:16px;
     text-align:center;
@@ -587,10 +759,10 @@ body::after {
 }
 
 .experience-table td{
-    border-bottom:1px solid #eef2f4;
+    border-bottom:1px solid var(--table-border);
     padding:12px;
     text-align:center;
-    color:#374151;
+    color:var(--table-cell-text);
     transition: background .25s ease, color .25s ease;
 }
 
@@ -600,24 +772,24 @@ body::after {
 
 /* baris jabatan (yang ada <strong>) ditonjolkan */
 .experience-table td strong{
-    color:#2563eb;
+    color:var(--blue);
 }
 
 .experience-table tbody tr:nth-child(even) td{
-    background:#f5f8fd;
+    background:var(--table-row-alt);
 }
 
 /* baris tahun diberi gaya seperti badge kecil */
 .experience-table tbody tr:nth-child(2) td{
-    background:#e8f0fe;
-    color:#2563eb;
+    background:var(--blue-soft-bg);
+    color:var(--blue);
     font-weight:600;
     font-size:14px;
 }
 
 .experience-table tbody tr:hover td{
-    background:#dbeafe;
-    color:#1e40af;
+    background:var(--blue-soft-bg);
+    color:var(--blue-soft-text);
 }
 
 @media(max-width:768px){
@@ -628,16 +800,20 @@ body::after {
 
 }
 .content-box{
-    background:#cde3d8;
+    background:var(--content-box-bg);
     margin-top:40px;
     padding:40px;
     border-radius:25px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    box-shadow:0 5px 15px var(--shadow);
+    transition: background-color .4s ease;
 }
 
-/* kartu bootstrap (about, hobi, pengalaman) jangan putih murni */
-.wrapper .card{
-    background-color: #f6faf7;
+/* kartu bootstrap (about, hobi, pengalaman) ikut warna tema */
+.wrapper .card,
+.wrapper .card-header{
+    background-color: var(--card-bg);
+    color: var(--text);
+    border-color: var(--table-border);
 }
 
 .hobby-card{
@@ -664,7 +840,7 @@ body::after {
 }
 
 .hobby-card p{
-    color:#555;
+    color:var(--muted);
     line-height:1.6;
 }
 
@@ -684,7 +860,7 @@ body::after {
     overflow: hidden;
     display:flex;
     align-items:stretch;
-    background: #f7fbf8;
+    background: var(--card-bg);
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0,0,0,.08);
     transition: transform .35s ease, box-shadow .35s ease;
@@ -747,11 +923,11 @@ body::after {
 }
 
 .project-card:hover h3{
-    color: #2c7a6b;
+    color: var(--primary);
 }
 
 .project-short{
-    color: #555;
+    color: var(--muted);
     line-height: 1.6;
     font-size: 15px;
     margin-bottom: 14px;
@@ -763,8 +939,8 @@ body::after {
     align-items: center;
     gap: 8px;
     border: none;
-    background: #dff5ef;
-    color: #1d6b5c;
+    background: var(--toggle-bg);
+    color: var(--toggle-text);
     font-weight: 600;
     font-size: 14px;
     padding: 10px 22px;
@@ -786,7 +962,7 @@ body::after {
 
 .project-toggle:hover,
 .project-toggle[aria-expanded="true"]{
-    background: #2c7a6b;
+    background: var(--primary);
     color: white;
     box-shadow: 0 8px 16px rgba(44, 122, 107, .3);
 }
@@ -795,19 +971,19 @@ body::after {
 .project-detail{
     margin-top: 16px;
     padding-top: 16px;
-    border-top: 2px dashed #d1e7e0;
+    border-top: 2px dashed var(--table-border);
     animation: detail-fade .45s ease;
 }
 
 .project-detail h5{
     font-weight: bold;
-    color: #2c7a6b;
+    color: var(--primary);
     font-size: 15px;
     margin-bottom: 8px;
 }
 
 .project-detail p{
-    color: #555;
+    color: var(--muted);
     line-height: 1.65;
     font-size: 14.5px;
     margin-bottom: 12px;
@@ -831,8 +1007,8 @@ body::after {
 }
 
 .project-tags span{
-    background: #eef4ff;
-    color: #2563eb;
+    background: var(--blue-soft-bg);
+    color: var(--blue);
     font-size: 12px;
     font-weight: 600;
     padding: 5px 12px;
@@ -841,6 +1017,7 @@ body::after {
 }
 
 .project-card:hover .project-tags span{
+    /* warna tetap gelap supaya teks putih tetap terbaca di kedua tema */
     background: #2563eb;
     color: white;
 }
@@ -884,7 +1061,7 @@ body::after {
     top: 0;
     width: 4px;
     height: 100%;
-    background: #0d6efd;
+    background: var(--timeline-line);
     border-radius: 20px;
 }
 
@@ -900,7 +1077,7 @@ body::after {
     top: 0;
     width: 45px;
     height: 45px;
-    background: white;
+    background: var(--card-bg);
     border-radius: 50%;
     font-size: 20px;
     display: flex;
@@ -917,7 +1094,7 @@ body::after {
 }
 
 .timeline-card{
-    background: #f8fbf8;
+    background: var(--card-bg);
     padding: 25px;
     border-radius: 18px;
     box-shadow: 0 3px 10px rgba(0,0,0,.1);
@@ -934,7 +1111,7 @@ body::after {
 }
 
 .timeline-card p{
-    color: #555;
+    color: var(--muted);
     margin-bottom: 0;
 }
 
@@ -984,7 +1161,7 @@ body::after {
 /* kursor berkedip untuk efek ketik di halaman awal */
 .type-cursor{
     display: inline-block;
-    color: #4fae9c;
+    color: var(--primary);
     font-weight: 300;
     animation: blink-cursor .8s steps(1) infinite;
 }
@@ -1007,6 +1184,17 @@ body::after {
     }
 }
 
+/* judul halaman masuk dengan efek naik lembut (dipakai main.js) */
+.js-anim .heading-pending{
+    opacity: 0;
+    transform: translateY(24px);
+}
+
+.js-anim .heading-revealed{
+    opacity: 1;
+    animation: reveal-in .7s ease backwards;
+}
+
 /* tombol kembali ke atas */
 .scroll-top-btn{
     position: fixed;
@@ -1016,7 +1204,7 @@ body::after {
     height: 46px;
     border: none;
     border-radius: 50%;
-    background: #2c7a6b;
+    background: var(--primary);
     color: white;
     font-size: 20px;
     cursor: pointer;
@@ -1035,7 +1223,7 @@ body::after {
 }
 
 .scroll-top-btn:hover{
-    background: #2563eb;
+    background: var(--blue);
 }
 
 /* matikan animasi bagi pengguna yang prefers reduced motion */
@@ -1051,10 +1239,21 @@ body::after {
         opacity: 1;
         transform: none;
     }
+    .js-anim .heading-pending{
+        opacity: 1;
+        transform: none;
+    }
     .bg-animation span{
         animation: none;
     }
     .navbar{
+        animation: none;
+    }
+    .avatar-ring,
+    .wrapper > .container::before{
+        animation: none;
+    }
+    [data-theme="dark"] .theme-btn{
         animation: none;
     }
     .content h1,
@@ -1062,7 +1261,7 @@ body::after {
         animation: none;
         background: none;
         -webkit-text-fill-color: initial;
-        color: #4fae9c;
+        color: var(--primary);
     }
 }
 
@@ -1183,6 +1382,15 @@ body::after {
         height: 140px !important;
     }
 
+    /* cincin foto dikecilkan mengikuti foto 140px:
+       top = (140-172)/2 = -16px supaya tetap rata mengelilingi foto */
+    .avatar-ring{
+        top: -16px;
+        width: 172px;
+        height: 172px;
+        margin-left: -86px;
+    }
+
     .sosmed{
         gap: 12px;
     }
@@ -1198,5 +1406,145 @@ body::after {
 
     .navbar{
         font-size: 16px;
+    }
+}
+
+/* =========================
+   Dark Mode (data-theme="dark")
+   Penyesuaian detail yang tidak enough cuma lewat variabel
+   ========================= */
+[data-theme="dark"] body::before,
+[data-theme="dark"] .Body::before,
+[data-theme="dark"] .Body-page::before{
+    background: rgba(127, 224, 205, .07);
+}
+
+[data-theme="dark"] body::after,
+[data-theme="dark"] .Body::after,
+[data-theme="dark"] .Body-page::after{
+    background: rgba(127, 224, 205, .05);
+}
+
+/* efek kilat pada kartu menu dilemahkan supaya tidak menyilaukan */
+[data-theme="dark"] .menu::after{
+    background: linear-gradient(105deg, transparent, rgba(255,255,255,.18), transparent);
+}
+
+[data-theme="dark"] .menu,
+[data-theme="dark"] .skill-table,
+[data-theme="dark"] .experience-table,
+[data-theme="dark"] .project-card{
+    box-shadow: 0 8px 22px rgba(0,0,0,.45);
+}
+
+[data-theme="dark"] .skill-table th{
+    background: linear-gradient(120deg, #1d5a4e, #2c8a7a);
+}
+
+[data-theme="dark"] .experience-table th{
+    background: linear-gradient(120deg, #1d4ed8, #2c8a7a);
+}
+
+/* ikon sosmed dan lingkari dalam wrapper sedikit diredupkan */
+[data-theme="dark"] .sosmed img{
+    filter: brightness(.85) saturate(.85);
+}
+
+[data-theme="dark"] .bg-animation span{
+    background: rgba(127, 224, 205, .06);
+}
+
+[data-theme="dark"] .icon{
+    border-color: #344954;
+}
+
+[data-theme="dark"] .timeline-icon{
+    box-shadow: 0 3px 10px rgba(0,0,0,.5);
+}
+
+/* =========================
+   Tombol Toggle Light / Dark
+   Dibuat otomatis oleh main.js, tampil di semua halaman
+   ========================= */
+.theme-btn{
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 1000;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: var(--card-bg);
+    box-shadow: 0 6px 16px rgba(0,0,0,.25);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .3s ease, transform .3s ease;
+}
+
+.theme-btn:hover{
+    transform: scale(1.1) rotate(15deg);
+}
+
+/* tombol berputar pop saat tema baru dipasang */
+[data-theme="dark"] .theme-btn{
+    animation: btn-pop .55s ease;
+}
+
+@keyframes btn-pop{
+    0%{
+        transform: rotate(0deg) scale(1);
+    }
+    45%{
+        transform: rotate(190deg) scale(.82);
+    }
+    100%{
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.theme-icon{
+    width: 22px;
+    height: 22px;
+    display: block;
+}
+
+/* matahari (dipakai saat mode gelap) */
+.icon-sun{
+    border: 2.5px solid #ffd166;
+    border-radius: 50%;
+    background: #ffd166;
+    box-shadow: 0 0 10px rgba(255, 209, 102, .6);
+}
+
+/* bulan sabit (dipakai saat mode terang) */
+.icon-moon{
+    border-radius: 50%;
+    box-shadow: inset 7px -3px 0 0 #5b7c99;
+}
+
+/* transisi halus saat warna tema berubah (dipasang oleh main.js) */
+body.theme-fade,
+body.theme-fade .wrapper,
+body.theme-fade .content-box,
+body.theme-fade .card,
+body.theme-fade .menu,
+body.theme-fade .project-card,
+body.theme-fade .skill-table,
+body.theme-fade .experience-table,
+body.theme-fade td,
+body.theme-fade th{
+    transition: background-color .45s ease, color .45s ease,
+                border-color .45s ease, box-shadow .45s ease;
+}
+
+@media (max-width: 991.98px){
+    .theme-btn{
+        top: 10px;
+        right: 10px;
+        width: 42px;
+        height: 42px;
     }
 }
