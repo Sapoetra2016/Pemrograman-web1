@@ -268,6 +268,8 @@ body::after {
     position: absolute;
     border-radius: 50%;
     background: var(--bubble-overlay);
+    /* blur supaya tepi lembut seperti bokeh, bukan koin tegas */
+    filter: blur(10px);
     animation: float 8s ease-in-out infinite;
 }
 
@@ -294,30 +296,6 @@ body::after {
     animation-delay: 4s;
 }
 
-.bg-animation span:nth-child(4){
-    width: 70px;
-    height: 70px;
-    top: 32%;
-    left: 8%;
-    animation-delay: 1s;
-}
-
-.bg-animation span:nth-child(5){
-    width: 180px;
-    height: 180px;
-    bottom: 12%;
-    left: 55%;
-    animation-delay: 3s;
-}
-
-.bg-animation span:nth-child(6){
-    width: 50px;
-    height: 50px;
-    top: 12%;
-    right: 12%;
-    animation-delay: 5s;
-}
-
 @keyframes float{
     0%,100%{
         transform: translateY(0);
@@ -327,7 +305,7 @@ body::after {
     }
 }
 
-/* gerakan drift miring untuk beberapa gelembung supaya tidak monoton */
+/* gerakan drift miring untuk satu gelembung supaya tidak monoton */
 @keyframes drift{
     0%,100%{
         transform: translate(0, 0) scale(1);
@@ -337,18 +315,9 @@ body::after {
     }
 }
 
-.bg-animation span:nth-child(2),
-.bg-animation span:nth-child(4),
-.bg-animation span:nth-child(5){
+.bg-animation span:nth-child(2){
     animation-name: drift;
-}
-
-.bg-animation span:nth-child(4){
     animation-duration: 11s;
-}
-
-.bg-animation span:nth-child(5){
-    animation-duration: 13s;
 }
 
 .bg-animation{
@@ -369,21 +338,20 @@ body::after {
 .wrapper > .container::before{
     content: '';
     position: absolute;
-    inset: -16px -100px 0;
+    top: -18px;
+    left: 50%;
+    width: 240px;
+    height: 240px;
+    margin-left: -120px;
     border-radius: 50%;
-    background: conic-gradient(from 0deg,
-        #4fae9c, #2563eb, #9da3c4, #c0a0b4, #4fae9c);
-    filter: blur(26px);
-    opacity: .5;
+    /* halo simetris lembut di belakang foto (radial, bukan conic) */
+    background: radial-gradient(circle at 50% 45%,
+        rgba(79, 174, 156, .5),
+        rgba(37, 99, 235, .2) 60%,
+        transparent 72%);
+    filter: blur(16px);
     z-index: -1;
-    animation: glow-spin 9s linear infinite;
     pointer-events: none;
-}
-
-@keyframes glow-spin{
-    to{
-        transform: rotate(360deg);
-    }
 }
 
 /* cincin berputar mengelilingi foto: foto 200px di puncak container,
