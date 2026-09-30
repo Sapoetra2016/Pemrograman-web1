@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuryaSaputra</title>
+    <title>Project — Surya Saputra</title>
+    <meta name="description" content="Kumpulan project web dan infrastruktur yang pernah dikerjakan Surya Saputra.">
     <link rel="icon" type="image/gif" href="asset/favicon/favicon.gif">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,14 +29,15 @@
     <div class="wrapper">
 
 <!-- untuk halaman ini saya menggunakan navbar untuk menghubungkan antar menu -->
-        <div class="navbar d-flex justify-content-center align-items-center gap-4">
-            <a href="index.html">Halaman Awal</a>
+        <nav class="navbar d-flex justify-content-center align-items-center gap-4">
+            <a href="index.html">Beranda</a>
             <a href="about.html">Tentang Saya</a>
             <a href="pendidikan.html">Pendidikan</a>
-            <a href="skill.html">Pengalaman dan Keahlian</a>
-            <a href="hobi.html">Hobi</a>
+            <a href="skill.html">Pengalaman &amp; Keahlian</a>
             <a href="Project.html">Project</a>
-        </div>
+            <a href="hobi.html">Hobi</a>
+
+        </nav>
         <div class="content-box">
 
             <div class="text-center mb-5">
@@ -45,8 +47,8 @@
                 </p>
             </div>
 
-<!-- setiap project punya gambar, penjelasan singkat, dan detail yang bisa di-collapse
-     pakai fitur Bootstrap collapse (data-bs-toggle="collapse") -->
+<!-- setiap project punya gambar + deskripsi singkat di kartu,
+     detail lengkapnya muncul sebagai pop-up (modal Bootstrap) -->
             <div class="project-list">
 
                 <div class="project-card">
@@ -60,27 +62,9 @@
                             barang, dan laporan penjualan secara real-time.
                         </p>
                         <button class="project-toggle" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#detail-project-1"
-                            aria-expanded="false" aria-controls="detail-project-1">
+                            data-bs-toggle="modal" data-bs-target="#projectModal-1">
                             Selengkapnya
                         </button>
-                        <div class="collapse" id="detail-project-1">
-                            <div class="project-detail">
-                                <h5>Penjelasan Lengkap</h5>
-                                <p>
-                                    Aplikasi ini digunakan untuk mencatat transaksi
-                                    penjualan harian, mengelola stok barang, dan
-                                    menghasilkan laporan penjualan mingguan hingga
-                                    tahunan. Sistem memiliki multi-role (admin, kasir)
-                                    lengkap dengan autentikasi login.
-                                </p>
-                                <div class="project-tags">
-                                    <span>PHP</span>
-                                    <span>MySQL</span>
-                                    <span>Bootstrap</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -95,26 +79,9 @@
                             merekap laporan kehadiran harian hingga bulanan.
                         </p>
                         <button class="project-toggle" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#detail-project-2"
-                            aria-expanded="false" aria-controls="detail-project-2">
+                            data-bs-toggle="modal" data-bs-target="#projectModal-2">
                             Selengkapnya
                         </button>
-                        <div class="collapse" id="detail-project-2">
-                            <div class="project-detail">
-                                <h5>Penjelasan Lengkap</h5>
-                                <p>
-                                    Aplikasi absensi dengan fitur check-in / check-out,
-                                    rekap otomatis per minggu dan bulan, serta ekspor
-                                    laporan. Dilengkapi validasi lokasi dan jam
-                                    kehadiran untuk mengurangi kecurangan absensi.
-                                </p>
-                                <div class="project-tags">
-                                    <span>PHP</span>
-                                    <span>MySQL</span>
-                                    <span>Laravel</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -129,29 +96,99 @@
                             dan proses checkout pembayaran.
                         </p>
                         <button class="project-toggle" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#detail-project-3"
-                            aria-expanded="false" aria-controls="detail-project-3">
+                            data-bs-toggle="modal" data-bs-target="#projectModal-3">
                             Selengkapnya
                         </button>
-                        <div class="collapse" id="detail-project-3">
-                            <div class="project-detail">
-                                <h5>Penjelasan Lengkap</h5>
-                                <p>
-                                    Platform toko online lengkap dengan katalog dan
-                                    pencarian produk, keranjang belanja, checkout,
-                                    serta integrasi pembayaran. Riwayat pesanan
-                                    pelanggan tersimpan dan bisa dilacak.
-                                </p>
-                                <div class="project-tags">
-                                    <span>HTML</span>
-                                    <span>CSS</span>
-                                    <span>JavaScript</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
+            </div>
+
+<!-- isi pop-up detail project: satu modal per project,
+     tutup lewat tanda X, tombol Tutup, atau klik area gelap di luar -->
+            <div class="modal fade" id="projectModal-1" tabindex="-1" aria-hidden="true" aria-labelledby="projectModal-1-title">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content project-modal">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="projectModal-1-title">🛒 Aplikasi Penjualan Berbasis Web</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="asset/content-images/teknologi.jpg" class="project-modal-img" alt="Aplikasi Penjualan">
+                            <p>
+                                Aplikasi ini digunakan untuk mencatat transaksi
+                                penjualan harian, mengelola stok barang, dan
+                                menghasilkan laporan penjualan mingguan hingga
+                                tahunan. Sistem memiliki multi-role (admin, kasir)
+                                lengkap dengan autentikasi login.
+                            </p>
+                            <div class="project-tags">
+                                <span>PHP</span>
+                                <span>MySQL</span>
+                                <span>Bootstrap</span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="project-toggle" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="projectModal-2" tabindex="-1" aria-hidden="true" aria-labelledby="projectModal-2-title">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content project-modal">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="projectModal-2-title">🕐 Aplikasi Absensi Berbasis Web</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="asset/content-images/cyber.jpg" class="project-modal-img" alt="Aplikasi Absensi">
+                            <p>
+                                Aplikasi absensi dengan fitur check-in / check-out,
+                                rekap otomatis per minggu dan bulan, serta ekspor
+                                laporan. Dilengkapi validasi lokasi dan jam
+                                kehadiran untuk mengurangi kecurangan absensi.
+                            </p>
+                            <div class="project-tags">
+                                <span>PHP</span>
+                                <span>MySQL</span>
+                                <span>Laravel</span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="project-toggle" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="projectModal-3" tabindex="-1" aria-hidden="true" aria-labelledby="projectModal-3-title">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content project-modal">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="projectModal-3-title">🛍️ Aplikasi E-Commerce Berbasis Web</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="asset/content-images/teknologi.jpg" class="project-modal-img" alt="Aplikasi E-Commerce">
+                            <p>
+                                Platform toko online lengkap dengan katalog dan
+                                pencarian produk, keranjang belanja, checkout,
+                                serta integrasi pembayaran. Riwayat pesanan
+                                pelanggan tersimpan dan bisa dilacak.
+                            </p>
+                            <div class="project-tags">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="project-toggle" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

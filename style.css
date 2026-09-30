@@ -127,7 +127,9 @@ body::after {
 
 .wrapper{
     position: relative;
-    overflow: hidden;
+    /* visible (bukan hidden) supaya .navbar bisa sticky;
+       potongan gelembung background dialihkan ke .bg-animation */
+    overflow: visible;
     background-color: var(--wrapper-bg);
     color: var(--text);
     width: 80%;
@@ -140,7 +142,13 @@ body::after {
 }
 /* bar navigasi */
 
-.navbar {
+/* selector nav.navbar supaya menang melawan .navbar milik Bootstrap
+   (bootstrap.css dimuat setelah style.css di <head>) */
+nav.navbar {
+    /* lock: navbar ikut melayang di atas saat halaman discroll */
+    position: sticky;
+    top: 12px;
+    z-index: 999;
     width:95%;
     max-width:1200px;
     border-radius: 50px;
@@ -151,7 +159,7 @@ body::after {
     animation: navbar-shift 8s ease-in-out infinite alternate;
     padding: 15px 30px;
     font-weight: bold;
-    font-size:25px; 
+    font-size:18px; 
     box-shadow:0 7px 12px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.35);
     /* efek kaca: warna dibuat transparan supaya blur di bawahnya terlihat */
     backdrop-filter: blur(8px) saturate(150%);
@@ -180,8 +188,9 @@ body::after {
     text-decoration: none;
     color: white;
     font-weight: bold;
-    margin: 0 15px;
+    margin: 0 12px;
     padding: 4px 2px;
+    white-space: nowrap;
     transition: color .25s ease, transform .25s ease;
 }
 
@@ -213,8 +222,9 @@ body::after {
     display: flex;
     align-items: center;
     gap: 1rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;   /* desktop: semua link rata satu baris */
     justify-content: center;
+    min-width: 0;        /* boleh menyusut supaya tidak meluber dari pill */
 }
 
 /* tombol hamburger, hanya tampil di layar kecil */
@@ -325,6 +335,10 @@ body::after {
     inset: 0;
     z-index: 0;
     pointer-events: none;
+    /* bulatkan + clip di sini menggantikan overflow:hidden wrapper
+       supaya gelembung tetap terpotong rapi di sudut kartu */
+    border-radius: inherit;
+    overflow: hidden;
 }
 
 /* =========================
@@ -333,6 +347,8 @@ body::after {
 .wrapper > .container{
     position: relative;
     z-index: 1;
+    /* beri ruang dari tepi atas wrapper supaya foto tidak mepet */
+    margin-top: 45px;
 }
 
 .wrapper > .container::before{
@@ -432,15 +448,16 @@ body::after {
 }
 
 .menu-container{
-    display: flex;
+    display: grid;
+    grid-template-columns:repeat(5, 1fr); /* 5 kotak sejajar satu baris */
     justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .menu-link{
     text-decoration: none;
     color: inherit;
+    display: flex;        /* kartu anak bisa meregang setinggi baris grid */
 }
 .content {
     margin-top: 25px;
@@ -462,6 +479,13 @@ body::after {
     animation-duration: 7s; /* sedikit lebih lambat supaya tidak seragam */
 }
 
+/* peran yang diketik-hapus: lebar minimum supaya h2 tidak bergoyang */
+.role-text{
+    display: inline-block;
+    min-width: 190px;
+    text-align: left;
+}
+
 @keyframes heading-flow{
     from{
         background-position: 0% 50%;
@@ -474,7 +498,11 @@ body::after {
     position: relative;
     overflow: hidden;
     margin-top: 75px;
-    width: 220px;
+    width: 100%;          /* mengisi kolom grid agar 5 kartu muat satu baris */
+    height: calc(100% - 75px); /* semua kartu tingginya sama persis */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     background: var(--menu-bg);
     border: 1px solid rgba(44, 122, 107, .10);
     border-radius: 20px;
@@ -563,6 +591,7 @@ body::after {
     color: var(--muted);
     line-height: 1.55;
     margin-bottom: 14px;
+    flex: 1;              /* mendorong tombol "Buka" ke bawah supaya sejajar */
 }
 
 /* tombol "Buka" muncul saat hover */
@@ -619,10 +648,170 @@ body::after {
 }
 
 .tentang-list {
-        display:grid;
+    display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:10px 30px;
-    padding-left:25px;
+    gap:8px 20px;
+    padding-left:0;
+    list-style:none;
+}
+
+/* baris daftar kesukaan: centang teal + latar lembut, hover tipis saja */
+.tentang-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:9px 14px;
+    background:var(--table-row-alt);
+    border-radius:10px;
+    font-weight:500;
+    transition:background .25s ease, color .25s ease, transform .25s ease;
+}
+
+.tentang-list li::before{
+    content:'\2713'; /* centang */
+    flex:none;
+    width:20px;
+    height:20px;
+    margin-top:1px;
+    border-radius:50%;
+    background:linear-gradient(120deg, #2c7a6b, #38b2a2);
+    color:white;
+    font-size:12px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.tentang-list li:hover{
+    background:var(--table-row-hover);
+    color:var(--primary);
+    transform:translateX(3px);
+}
+
+/* =========================
+   Tabel Informasi Pribadi (halaman about)
+   Gaya "chip": tiap baris jadi pil terpisah dengan label
+   gradient di kiri dan nilai di kanan
+   ========================= */
+.info-table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0 10px;
+}
+
+.info-table th,
+.info-table td{
+    padding:14px 18px;
+    vertical-align:middle;
+    border:none;
+    transition:background .25s ease, color .25s ease, transform .25s ease;
+}
+
+.info-table th{
+    width:40%;
+    background:linear-gradient(120deg, #2c7a6b, #38b2a2);
+    color:white;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:.4px;
+    border-radius:14px 0 0 14px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.25);
+}
+
+.info-table td{
+    background:var(--table-row-alt);
+    color:var(--text);
+    font-weight:600;
+    border-radius:0 14px 14px 0;
+    border-left:3px solid rgba(44,122,107,.35);
+}
+
+/* baris menyala + sedikit maju saat hover */
+.info-table tr:hover th{
+    background:linear-gradient(120deg, #2563eb, #4fae9c);
+}
+
+.info-table tr:hover td{
+    background:var(--table-row-hover);
+    color:var(--primary);
+    transform:translateX(4px);
+}
+
+/* =========================
+   Daftar Kontak (halaman about)
+   Chip horizontal: ikon dalam lingkaran gradient + label + nilai,
+   menyatu dengan gaya info-table di sebelahnya
+   ========================= */
+.contact-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.contact-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px 16px;
+    background:var(--table-row-alt);
+    border:1px solid rgba(44,122,107,.12);
+    border-left:3px solid rgba(44,122,107,.35);
+    border-radius:14px;
+    transition:transform .25s ease, box-shadow .25s ease,
+                background .25s ease, border-color .25s ease;
+}
+
+.contact-item:hover{
+    transform:translateX(6px);
+    background:var(--table-row-hover);
+    border-color:rgba(44,122,107,.35);
+    box-shadow:0 8px 20px rgba(44,122,107,.18);
+}
+
+/* lingkaran ikon dengan gradient yang sama dengan label info-table */
+.contact-icon{
+    flex:none;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:linear-gradient(120deg, #2c7a6b, #38b2a2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.25),
+                0 4px 10px rgba(44,122,107,.25);
+    transition:transform .3s ease;
+}
+
+.contact-item:hover .contact-icon{
+    transform:scale(1.1) rotate(-6deg);
+}
+
+.contact-icon img{
+    width:22px;
+    height:22px;
+}
+
+.contact-label{
+    display:block;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:2px;
+}
+
+.contact-value{
+    display:block;
+    font-weight:600;
+    color:var(--text);
+    transition:color .25s ease;
+}
+
+.contact-item:hover .contact-value{
+    color:var(--primary);
 }
 
 /* =========================
@@ -943,6 +1132,83 @@ body::after {
     animation: detail-fade .45s ease;
 }
 
+/* =========================
+   Pop-up (modal) detail project
+   ========================= */
+.project-modal{
+    background: var(--card-bg);
+    color: var(--text);
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,.35);
+}
+
+/* header gradient senada dengan navbar */
+.project-modal .modal-header{
+    background: linear-gradient(120deg, #2c7a6b, #38b2a2, #2563eb);
+    border-bottom: none;
+    padding: 18px 24px;
+}
+
+.project-modal .modal-title{
+    color: white;
+    font-weight: 700;
+}
+
+/* tanda X tetap putih di kedua tema karena header selalu gelap */
+.project-modal .modal-header .btn-close{
+    filter: invert(1) grayscale(100) brightness(2);
+    opacity: .85;
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+.project-modal .modal-header .btn-close:hover{
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
+.project-modal .modal-body{
+    padding: 24px;
+}
+
+.project-modal-img{
+    width: 100%;
+    max-height: 260px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+.project-modal .modal-body p{
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 14.5px;
+    margin-bottom: 14px;
+}
+
+.project-modal .modal-footer{
+    border-top: 1px solid var(--table-border);
+    padding: 14px 24px;
+}
+
+/* tombol Tutup: ganti panah collapse jadi silang kecil */
+.project-modal .modal-footer .project-toggle::after{
+    content: '\2715';
+    font-size: 10px;
+}
+
+.project-modal .project-tags span{
+    background: var(--blue-soft-bg);
+    color: var(--blue);
+}
+
+.project-modal .project-tags span:hover{
+    background: #2563eb;
+    color: white;
+}
+
 .project-detail h5{
     font-weight: bold;
     color: var(--primary);
@@ -1090,8 +1356,32 @@ body::after {
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:5px 20px;
-    padding-left:20px;
+    padding-left:0;
+    list-style:none;
     margin-bottom:0;
+}
+
+/* penanda kecil senada untuk daftar game di halaman hobi */
+.games-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    padding:4px 6px;
+    border-radius:8px;
+    transition:background .25s ease, color .25s ease;
+}
+
+.games-list li::before{
+    content:'\2022'; /* titik */
+    flex:none;
+    color:#38b2a2;
+    font-size:18px;
+    line-height:1.1;
+}
+
+.games-list li:hover{
+    background:var(--table-row-hover);
+    color:var(--primary);
 }
 
 .game-list li{
@@ -1299,8 +1589,7 @@ body::after {
     }
 
     .menu-container{
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr; /* HP: satu kolom vertikal */
         gap: 0;
     }
 

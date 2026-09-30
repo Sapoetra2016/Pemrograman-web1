@@ -3,7 +3,7 @@
    skill, hobi, project)
    Fitur:
    1. Animasi reveal saat di-scroll (fade + geser) pakai IntersectionObserver
-   2. Efek ketik (typing) pada teks sambutan di halaman awal
+   2. Efek ketik-hapus berputar pada peran ("Saya seorang ...") di halaman awal
    3. Hamburger menu otomatis untuk tampilan handphone (collapse/expand)
    4. Gerak paralel ringan pada lingkaran dekoratif background
    5. Animasi baris tabel muncul bergiliran (stagger)
@@ -71,33 +71,45 @@ function setupScrollReveal() {
 }
 
 /* ============================================================
-   2. EFEK KETIK pada <h1> di bagian ".content" (halaman awal)
+   2. EFEK KETIK-HAPUS BERPUTAR pada peran ("Saya seorang ...")
+   di <h2> halaman awal. Judul <h1> sekarang statis.
    ============================================================ */
-function setupTyping() {
-    const h1 = document.querySelector('.content h1');
-    if (!h1) return; // hanya jalan kalau elemennya ada
+const ROLE_TEKS = ['IT Operation', 'IT Support', 'Customer Support', 'Administrator'];
 
-    const teks = h1.textContent.trim();
-    h1.textContent = '';
-    h1.setAttribute('aria-label', teks); // tetap terbaca untuk accessibility
+function setupRoleTyping() {
+    const el = document.getElementById('role-text');
+    if (!el) return; // hanya jalan di halaman awal
 
-    const cursor = document.createElement('span');
-    cursor.className = 'type-cursor';
-    cursor.textContent = '|';
-    h1.after(cursor);
+    let peranIdx = 0;
+    let hurufIdx = ROLE_TEKS[0].length; // teks pertama sudah tertulis di HTML
+    let menghapus = true;               // langsung hapus setelah muncul sejenak
 
-    let i = 0;
-    function ketik() {
-        if (i < teks.length) {
-            h1.textContent += teks.charAt(i);
-            i++;
-            setTimeout(ketik, 55); // kecepatan ketik per huruf
+    function langkah() {
+        const teks = ROLE_TEKS[peranIdx];
+
+        if (menghapus) {
+            hurufIdx--;
+            el.textContent = teks.slice(0, hurufIdx);
+            if (hurufIdx === 0) {
+                menghapus = false;
+                peranIdx = (peranIdx + 1) % ROLE_TEKS.length;
+                setTimeout(langkah, 400); // jeda sebelum ganti peran baru
+                return;
+            }
+            setTimeout(langkah, 35); // kecepatan hapus per huruf
         } else {
-            // kursor berkedip beberapa detik lalu hilang
-            setTimeout(() => cursor.remove(), 4000);
+            hurufIdx++;
+            el.textContent = ROLE_TEKS[peranIdx].slice(0, hurufIdx);
+            if (hurufIdx === ROLE_TEKS[peranIdx].length) {
+                menghapus = true;
+                setTimeout(langkah, 1800); // teks utuh tertahan sebelum dihapus
+                return;
+            }
+            setTimeout(langkah, 70); // kecepatan ketik per huruf
         }
     }
-    setTimeout(ketik, 400);
+
+    setTimeout(langkah, 1200); // mulai animasi setelah halaman termuat
 }
 
 /* ============================================================
@@ -337,6 +349,18 @@ function setupHeadingEntrance() {
 }
 
 /* ============================================================
+   11. TAHUN FOOTER OTOMATIS
+   Angka tahun di dalam <footer> diganti tahun berjalan,
+   supaya hak cipta tidak terlihat basi saat berganti tahun
+   ============================================================ */
+function setupFooterYear() {
+    const tahun = new Date().getFullYear();
+    document.querySelectorAll('footer p').forEach(p => {
+        p.innerHTML = p.innerHTML.replace(/©\s*\d{4}/, '\u00a9 ' + tahun);
+    });
+}
+
+/* ============================================================
    Jalankan semua setup setelah DOM siap
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -344,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('theme-fade');
     setupThemeToggle();
     setupMobileNav();
-    setupTyping();
+    setupRoleTyping();
     setupScrollReveal();
     setupTableRows();
     setupCardTilt();
@@ -352,4 +376,5 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScrollTopButton();
     setupAvatarRing();
     setupHeadingEntrance();
+    setupFooterYear();
 });
