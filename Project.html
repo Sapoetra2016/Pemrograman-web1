@@ -47,56 +47,57 @@
                 </p>
             </div>
 
-<!-- setiap project punya gambar + deskripsi singkat di kartu,
-     detail lengkapnya muncul sebagai pop-up (modal Bootstrap) -->
+<!-- setiap project punya gambar + deskripsi singkat di kartu.
+     seluruh kartu bisa diklik (data-bs-target) untuk membuka pop-up,
+     detail lengkapnya muncul sebagai modal Bootstrap berisi carousel gambar -->
             <div class="project-list">
 
-                <div class="project-card">
+                <div class="project-card" data-bs-toggle="modal" data-bs-target="#projectModal-edi">
                     <div class="project-media">
-                        <img src="asset/content-images/teknologi.jpg" alt="Aplikasi Penjualan">
+                        <img src="asset/project/edi-monitor/dashboard.png" alt="EDI Indonesia Monitor">
                     </div>
                     <div class="project-info">
-                        <h3>🛒 Aplikasi Penjualan Berbasis Web</h3>
+                        <h3>🌐 EDI Indonesia Monitor</h3>
                         <p class="project-short">
-                            Sistem penjualan untuk mencatat transaksi, mengelola stok
-                            barang, dan laporan penjualan secara real-time.
+                            Tool monitoring domain dan SSL dengan notifikasi otomatis
+                            lewat email, WhatsApp, dan Slack.
                         </p>
                         <button class="project-toggle" type="button"
-                            data-bs-toggle="modal" data-bs-target="#projectModal-1">
+                            data-bs-toggle="modal" data-bs-target="#projectModal-edi">
                             Selengkapnya
                         </button>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-bs-toggle="modal" data-bs-target="#projectModal-beszel">
                     <div class="project-media">
-                        <img src="asset/content-images/cyber.jpg" alt="Aplikasi Absensi">
+                        <img src="asset/project/beszel/dashboard.png" alt="Beszel Server Monitoring">
                     </div>
                     <div class="project-info">
-                        <h3>🕐 Aplikasi Absensi Berbasis Web</h3>
+                        <h3>📊 Beszel Server Monitoring</h3>
                         <p class="project-short">
-                            Aplikasi kehadiran untuk mencatat absensi karyawan dan
-                            merekap laporan kehadiran harian hingga bulanan.
+                            Platform monitoring server untuk memantau uptime, service,
+                            penggunaan resource (CPU, Disk, Docker, Network), serta investigasi log.
                         </p>
                         <button class="project-toggle" type="button"
-                            data-bs-toggle="modal" data-bs-target="#projectModal-2">
+                            data-bs-toggle="modal" data-bs-target="#projectModal-beszel">
                             Selengkapnya
                         </button>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card" data-bs-toggle="modal" data-bs-target="#projectModal-opnsense">
                     <div class="project-media">
-                        <img src="asset/content-images/teknologi.jpg" alt="Aplikasi E-Commerce">
+                        <img src="asset/project/opnsense/dashboard.png" alt="OPNsense Firewall & Captive Portal">
                     </div>
                     <div class="project-info">
-                        <h3>🛍️ Aplikasi E-Commerce Berbasis Web</h3>
+                        <h3>🛡️ Firewall &amp; Captive Portal dengan OPNsense</h3>
                         <p class="project-short">
-                            Toko online dengan katalog produk, keranjang belanja,
-                            dan proses checkout pembayaran.
+                            Dari instalasi sampai siap digunakan, lengkap dengan
+                            monitoring realtime untuk lalu lintas jaringan kantor.
                         </p>
                         <button class="project-toggle" type="button"
-                            data-bs-toggle="modal" data-bs-target="#projectModal-3">
+                            data-bs-toggle="modal" data-bs-target="#projectModal-opnsense">
                             Selengkapnya
                         </button>
                     </div>
@@ -105,27 +106,79 @@
             </div>
 
 <!-- isi pop-up detail project: satu modal per project,
+     gambar pakai carousel Bootstrap (bisa beberapa gambar, otomatis geser),
      tutup lewat tanda X, tombol Tutup, atau klik area gelap di luar -->
-            <div class="modal fade" id="projectModal-1" tabindex="-1" aria-hidden="true" aria-labelledby="projectModal-1-title">
-                <div class="modal-dialog modal-dialog-centered">
+            <div class="modal fade" id="projectModal-edi" tabindex="-1" aria-hidden="true" aria-labelledby="projectModal-edi-title">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content project-modal">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="projectModal-1-title">🛒 Aplikasi Penjualan Berbasis Web</h5>
+                            <h5 class="modal-title" id="projectModal-edi-title">🌐 EDI Indonesia Monitor</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                         </div>
                         <div class="modal-body">
-                            <img src="asset/content-images/teknologi.jpg" class="project-modal-img" alt="Aplikasi Penjualan">
+                            <div id="projectCarousel-edi" class="carousel slide project-carousel" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="asset/project/edi-monitor/dashboard.png" alt="Dashboard Overview EDI Indonesia Monitor">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="asset/project/edi-monitor/domains.png" alt="Halaman Domain Management">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="asset/project/edi-monitor/tld-registry.png" alt="Halaman TLD Registry">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="asset/project/edi-monitor/notification-settings.png" alt="Pengaturan notifikasi dan monitoring">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel-edi" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Sebelumnya</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel-edi" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Berikutnya</span>
+                                </button>
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#projectCarousel-edi" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Gambar 1"></button>
+                                    <button type="button" data-bs-target="#projectCarousel-edi" data-bs-slide-to="1" aria-label="Gambar 2"></button>
+                                    <button type="button" data-bs-target="#projectCarousel-edi" data-bs-slide-to="2" aria-label="Gambar 3"></button>
+                                    <button type="button" data-bs-target="#projectCarousel-edi" data-bs-slide-to="3" aria-label="Gambar 4"></button>
+                                </div>
+                            </div>
                             <p>
-                                Aplikasi ini digunakan untuk mencatat transaksi
-                                penjualan harian, mengelola stok barang, dan
-                                menghasilkan laporan penjualan mingguan hingga
-                                tahunan. Sistem memiliki multi-role (admin, kasir)
-                                lengkap dengan autentikasi login.
+                                Aplikasi untuk memantau domain dan sertifikat SSL milik
+                                perusahaan, saya kembangkan saat bertugas di bagian IT
+                                Operation. Latar belakangnya sederhana: domain atau SSL
+                                yang kedaluwarsa bisa membuat website tidak bisa diakses
+                                atau memunculkan peringatan tidak aman bagi pengunjung,
+                                dan hal seperti itu mudah terlewat kalau tidak ada yang
+                                mengingatkan. Karena itu saya ingin ada satu tempat yang
+                                menampilkan semuanya dengan jelas.
+                            </p>
+                            <p>
+                                Dashboard-nya merangkum total domain, status aktif, serta
+                                daftar domain dan SSL yang akan segera kedaluwarsa lengkap
+                                dengan sisa harinya. Selain itu ada beberapa fitur pendukung
+                                yang saya tambahkan, seperti WHOIS lookup untuk mengecek
+                                detail domain, tag management untuk mengelompokkan domain,
+                                ringkasan sebaran registrar, serta pengelolaan TLD registry.
+                                Dengan begitu, data domain tidak lagi tersebar di banyak tempat.
+                            </p>
+                            <p>
+                                Bagian yang paling berguna menurut saya adalah notifikasinya.
+                                Aplikasi ini mengirim pengingat otomatis sebelum masa berlaku
+                                habis lewat email, WhatsApp, dan Slack, dan penerimanya bisa
+                                diatur per grup lewat notification groups supaya pesan sampai
+                                ke orang yang tepat. Ada juga indikator cakupan notifikasi
+                                yang menunjukkan domain mana saja yang belum punya pengingat,
+                                jadi tidak ada yang terlewat tanpa disadari.
                             </p>
                             <div class="project-tags">
-                                <span>PHP</span>
-                                <span>MySQL</span>
-                                <span>Bootstrap</span>
+                                <span>SystAdmin</span>
+                                <span>Project</span>
+                                <span>Whois</span>
+                                <span>Domain SSL</span>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -135,25 +188,64 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="projectModal-2" tabindex="-1" aria-hidden="true" aria-labelledby="projectModal-2-title">
-                <div class="modal-dialog modal-dialog-centered">
+            <div class="modal fade" id="projectModal-beszel" tabindex="-1" aria-hidden="true" aria-labelledby="projectModal-beszel-title">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content project-modal">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="projectModal-2-title">🕐 Aplikasi Absensi Berbasis Web</h5>
+                            <h5 class="modal-title" id="projectModal-beszel-title">📊 Beszel Server Monitoring</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                         </div>
                         <div class="modal-body">
-                            <img src="asset/content-images/cyber.jpg" class="project-modal-img" alt="Aplikasi Absensi">
+                            <div id="projectCarousel-beszel" class="carousel slide project-carousel" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="asset/project/beszel/dashboard.png" alt="Dashboard monitoring server Beszel">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="asset/project/beszel/services.png" alt="Daftar service dan resource server">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="asset/project/beszel/settings.png" alt="Pengaturan threshold dan notifikasi">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="asset/project/beszel/pocketbase-alerts.png" alt="Investigasi log & alert pada backend PocketBase Beszel">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel-beszel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Sebelumnya</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel-beszel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Berikutnya</span>
+                                </button>
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#projectCarousel-beszel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Gambar 1"></button>
+                                    <button type="button" data-bs-target="#projectCarousel-beszel" data-bs-slide-to="1" aria-label="Gambar 2"></button>
+                                    <button type="button" data-bs-target="#projectCarousel-beszel" data-bs-slide-to="2" aria-label="Gambar 3"></button>
+                                    <button type="button" data-bs-target="#projectCarousel-beszel" data-bs-slide-to="3" aria-label="Gambar 4"></button>
+                                </div>
+                            </div>
                             <p>
-                                Aplikasi absensi dengan fitur check-in / check-out,
-                                rekap otomatis per minggu dan bulan, serta ekspor
-                                laporan. Dilengkapi validasi lokasi dan jam
-                                kehadiran untuk mengurangi kecurangan absensi.
+                                Beszel adalah aplikasi monitoring server yang saya
+                                gunakan untuk memantau kondisi infrastruktur dari satu
+                                tempat. Lewat Beszel saya bisa melihat uptime server,
+                                service apa saja yang sedang berjalan, serta penggunaan
+                                resource secara real-time seperti CPU, Disk, Docker,
+                                dan Network.
+                            </p>
+                            <p>
+                                Selain memantau metrik, hal yang paling membantu adalah
+                                fitur investigasi log-nya. Ketika ada service yang error
+                                atau penggunaan resource yang tidak wajar, saya bisa langsung
+                                mengecek riwayat alert dan log untuk mencari tahu penyebabnya,
+                                bukan sekadar menerima notifikasi tanpa tahu apa yang terjadi.
                             </p>
                             <div class="project-tags">
-                                <span>PHP</span>
-                                <span>MySQL</span>
-                                <span>Laravel</span>
+                                <span>SystAdmin</span>
+                                <span>Monitoring</span>
+                                <span>Docker</span>
+                                <span>Logs</span>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -163,25 +255,69 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="projectModal-3" tabindex="-1" aria-hidden="true" aria-labelledby="projectModal-3-title">
-                <div class="modal-dialog modal-dialog-centered">
+            <div class="modal fade" id="projectModal-opnsense" tabindex="-1" aria-hidden="true" aria-labelledby="projectModal-opnsense-title">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content project-modal">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="projectModal-3-title">🛍️ Aplikasi E-Commerce Berbasis Web</h5>
+                            <h5 class="modal-title" id="projectModal-opnsense-title">🛡️ Firewall &amp; Captive Portal dengan OPNsense</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
                         </div>
                         <div class="modal-body">
-                            <img src="asset/content-images/teknologi.jpg" class="project-modal-img" alt="Aplikasi E-Commerce">
+                            <div id="projectCarousel-opnsense" class="carousel slide project-carousel" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="asset/project/opnsense/dashboard.png" alt="Dashboard OPNsense dengan monitoring realtime">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="asset/project/opnsense/firewall-aliases.png" alt="Konfigurasi Firewall Aliases">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="asset/project/opnsense/captive-portal.png" alt="Konfigurasi Captive Portal">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="asset/project/opnsense/user-activity.png" alt="Reporting User Activity realtime">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel-opnsense" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Sebelumnya</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel-opnsense" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Berikutnya</span>
+                                </button>
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#projectCarousel-opnsense" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Gambar 1"></button>
+                                    <button type="button" data-bs-target="#projectCarousel-opnsense" data-bs-slide-to="1" aria-label="Gambar 2"></button>
+                                    <button type="button" data-bs-target="#projectCarousel-opnsense" data-bs-slide-to="2" aria-label="Gambar 3"></button>
+                                    <button type="button" data-bs-target="#projectCarousel-opnsense" data-bs-slide-to="3" aria-label="Gambar 4"></button>
+                                </div>
+                            </div>
                             <p>
-                                Platform toko online lengkap dengan katalog dan
-                                pencarian produk, keranjang belanja, checkout,
-                                serta integrasi pembayaran. Riwayat pesanan
-                                pelanggan tersimpan dan bisa dilacak.
+                                OPNsense saya siapkan untuk kebutuhan firewall dan
+                                captive portal di kantor. Saya menanganinya dari awal,
+                                mulai dari proses instalasi, konfigurasi, sampai sistem
+                                siap digunakan.
+                            </p>
+                            <p>
+                                Firewall berfungsi mengatur dan mengamankan lalu lintas
+                                jaringan kantor, sedangkan captive portal memastikan
+                                pengguna melewati proses login terlebih dahulu sebelum bisa
+                                mengakses jaringan. Dengan begitu, akses ke jaringan kantor
+                                menjadi lebih terkontrol dan tertata.
+                            </p>
+                            <p>
+                                Sistemnya juga sudah dilengkapi monitoring realtime, sehingga
+                                kondisi jaringan dan aktivitas yang melewati firewall bisa
+                                dipantau langsung. Kalau ada yang tidak biasa, saya bisa segera
+                                melihatnya dan menindaklanjutinya tanpa harus menunggu laporan
+                                dari pengguna.
                             </p>
                             <div class="project-tags">
-                                <span>HTML</span>
-                                <span>CSS</span>
-                                <span>JavaScript</span>
+                                <span>SystAdmin</span>
+                                <span>Firewall</span>
+                                <span>Captive Portal</span>
+                                <span>OPNsense</span>
                             </div>
                         </div>
                         <div class="modal-footer">
