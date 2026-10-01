@@ -1772,44 +1772,70 @@ nav.navbar {
 
 /* =========================
    Tombol Toggle Light / Dark
-   Dibuat otomatis oleh main.js, tampil di semua halaman
+   Dibuat otomatis oleh main.js, melayang di kiri-bawah pada
+   semua halaman (kanan-bawah dipakai tombol scroll-top).
+   Bentuk pill: collapsed hanya ikon, saat di-hover melebar
+   menampilkan label "Terang" / "Gelap".
    ========================= */
 .theme-btn{
     position: fixed;
-    top: 18px;
-    right: 18px;
+    bottom: 22px;
+    left: 22px;
     z-index: 1000;
-    width: 48px;
     height: 48px;
-    border: none;
-    border-radius: 50%;
+    padding: 0 13px;
+    border: 1px solid var(--table-border);
+    border-radius: 50px;
     background: var(--card-bg);
+    color: var(--text);
     box-shadow: 0 6px 16px rgba(0,0,0,.25);
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: background .3s ease, transform .3s ease;
+    overflow: hidden;
+    transition: background .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 
-.theme-btn:hover{
-    transform: scale(1.1) rotate(15deg);
+.theme-btn:hover,
+.theme-btn:focus-visible{
+    box-shadow: 0 10px 26px rgba(44, 122, 107, .35);
+    border-color: var(--primary);
 }
 
-/* tombol berputar pop saat tema baru dipasang */
+/* label tersembunyi (lebar 0) -> melebar saat hover/fokus */
+.theme-label{
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    max-width: 0;
+    opacity: 0;
+    margin-left: 0;
+    overflow: hidden;
+    transition: max-width .35s ease, opacity .3s ease, margin-left .35s ease;
+}
+
+.theme-btn:hover .theme-label,
+.theme-btn:focus-visible .theme-label{
+    max-width: 90px;
+    opacity: 1;
+    margin-left: 8px;
+}
+
+/* tombol pop kecil saat tema baru dipasang (tanpa rotasi karena bentuk pill) */
 [data-theme="dark"] .theme-btn{
-    animation: btn-pop .55s ease;
+    animation: btn-pop .45s ease;
 }
 
 @keyframes btn-pop{
     0%{
-        transform: rotate(0deg) scale(1);
+        transform: scale(1);
     }
     45%{
-        transform: rotate(190deg) scale(.82);
+        transform: scale(.88);
     }
     100%{
-        transform: rotate(360deg) scale(1);
+        transform: scale(1);
     }
 }
 
@@ -1850,9 +1876,16 @@ body.theme-fade th{
 
 @media (max-width: 991.98px){
     .theme-btn{
-        top: 10px;
-        right: 10px;
-        width: 42px;
+        bottom: 14px;
+        left: 14px;
         height: 42px;
+        padding: 0 10px;
+    }
+
+    /* di layar sentuh tidak ada hover, label dibuat selalu terlihat */
+    .theme-label{
+        max-width: 90px;
+        opacity: 1;
+        margin-left: 8px;
     }
 }

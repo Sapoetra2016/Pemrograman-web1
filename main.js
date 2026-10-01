@@ -266,8 +266,10 @@ function setupScrollTopButton() {
 
 /* ============================================================
    8. TOMBOL TOGGLE LIGHT / DARK MODE
-   Tombol dibuat otomatis oleh JS lalu dipasang di pojok kanan
-   atas pada semua halaman. Tema aktif disimpan di localStorage
+   Tombol dibuat otomatis oleh JS lalu dipasang di semua halaman,
+   posisinya melayang di dalam border wrapper (sejajar tepi kanan
+   konten). Saat di-hover, tombol melebar menampilkan label
+   "Terang" / "Gelap". Tema aktif disimpan di localStorage
    supaya tetap sama saat pindah halaman / reload. Class
    .theme-fade sengaja tidak dipakai oleh reveal-pending agar
    transisi warna tidak bertabrakan dengan animasi scroll.
@@ -285,16 +287,27 @@ function setupThemeToggle() {
     const btn = document.createElement('button');
     btn.className = 'theme-btn';
     btn.type = 'button';
-    document.body.appendChild(btn);
+    btn.setAttribute('aria-label', 'Beralih mode terang / gelap');
 
     const icon = document.createElement('span');
     icon.className = 'theme-icon';
     btn.appendChild(icon);
 
+    /* label yang hanya terlihat saat tombol di-hover (efek expand) */
+    const label = document.createElement('span');
+    label.className = 'theme-label';
+    btn.appendChild(label);
+
+    /* pasang tombol melayang di kiri-bawah (kanan-bawah sudah dipakai
+       tombol scroll-top) pada semua halaman */
+    document.body.appendChild(btn);
+
     function perbaruiTampilan() {
         const gelap = document.documentElement.getAttribute('data-theme') === 'dark';
         // bulan sabit saat terang, matahari saat gelap
         icon.className = 'theme-icon ' + (gelap ? 'icon-sun' : 'icon-moon');
+        // label menunjukkan mode yang akan dituju saat diklik
+        label.textContent = gelap ? 'Terang' : 'Gelap';
         btn.setAttribute('aria-label',
             gelap ? 'Beralih ke mode terang' : 'Beralih ke mode gelap');
         btn.title = btn.getAttribute('aria-label');
@@ -366,8 +379,8 @@ function setupFooterYear() {
 document.addEventListener('DOMContentLoaded', () => {
     // pasang transisi warna lebih dulu, sebelum elemen lain hidden animasi reveal
     document.body.classList.add('theme-fade');
-    setupThemeToggle();
     setupMobileNav();
+    setupThemeToggle();
     setupRoleTyping();
     setupScrollReveal();
     setupTableRows();
